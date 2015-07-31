@@ -4,9 +4,30 @@ package au.com.clearboxsystems.casper;
  * http://www.clearboxsystems.com.au
  */
 
+import au.com.clearboxsystems.casper.gl.shape.Sphere;
+import com.jogamp.opengl.GLProfile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * User: pauls
  * Timestamp: 30/07/2015 9:53 AM
  */
 public class Casper {
+	public static final Logger logger = LoggerFactory.getLogger(Casper.class);
+
+	public static void main(String[] args) {
+		logger.info("Starting Casper...");
+
+		GLProfile.initSingleton();
+
+		Stage stage = new Stage();
+		stage.setExitOnClose(true);
+
+		Sphere sphere = new Sphere();
+		sphere.radius = 152;
+		stage.addSphere(sphere);
+
+	}
+
 }
