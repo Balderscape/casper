@@ -4,8 +4,17 @@ package au.com.clearboxsystems.casper.md;
  * http://www.clearboxsystems.com.au
  */
 
+import au.com.clearboxsystems.casper.Stage;
+import au.com.clearboxsystems.casper.gl.NativeWindow;
+import au.com.clearboxsystems.casper.gl.scene.Camera;
+import au.com.clearboxsystems.casper.gl.scene.OrbitCameraController;
+import au.com.clearboxsystems.casper.gl.scene.Scene;
+import au.com.clearboxsystems.casper.gl.shader.block.Light;
+import au.com.clearboxsystems.casper.gl.shape.LineRenderer;
+import au.com.clearboxsystems.casper.gl.shape.SphereRenderer;
 import au.com.clearboxsystems.casper.math.Vector2;
 import au.com.clearboxsystems.casper.math.Vector2I;
+import au.com.clearboxsystems.casper.math.Vector3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,8 +36,8 @@ public class SoftDiskFluid {
 		public double density = 0.8;
 		public Vector2I initUnitCell = new Vector2I(20, 20);
 		public int stepAvg = 100;
-		public int stepEquil = 0;
-		public int stepLimit = 10000;
+//		public int stepEquil = 0;
+		public int stepLimit = 100000;
 		public double temperature = 1;
 	}
 
@@ -39,7 +48,7 @@ public class SoftDiskFluid {
 	private int nMol;
 	private double velocityMagnitude;
 
-	private List<Molecule2D> molecules;
+	List<Molecule2D> molecules;
 
 	private StatisticalDouble totalEnergy = new StatisticalDouble();
 	private StatisticalDouble kineticEnergy = new StatisticalDouble();
@@ -53,12 +62,17 @@ public class SoftDiskFluid {
 	private Vector2 vSum = new Vector2();
 	private double vvSum = 0;
 
+	private Stage stage;
+
 	public void run(Config config) {
 		init(config);
-
 		LOG.info(" STEP SIM_TIME AVG_VEL TOT_NRGY AVG/SD KIN_NRGY AVG/SD PRESSURE AVG/SD");
 		while (stepCount < config.stepLimit) {
 			singleStep();
+			stage.update();
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException ignore) {}
 		}
 	}
 
@@ -69,6 +83,12 @@ public class SoftDiskFluid {
 
 		resetStats();
 		stepCount = 0;
+
+		stage = new Stage();
+		stage.setExitOnClose(true);
+		for (Molecule2D mol : molecules)
+			stage.addSphere(mol);
+
 	}
 
 	private void setupParams() {
@@ -129,7 +149,7 @@ public class SoftDiskFluid {
 				stepCount, simulationTime, (vSum.x + vSum.y) / nMol,
 				totalEnergy.average(), totalEnergy.stdDev(),
 				kineticEnergy.average(), kineticEnergy.stdDev(),
-				pressure.average(), pressure.stdDev() ));
+				pressure.average(), pressure.stdDev()));
 	}
 
 	private void evaluateProperties() {
@@ -197,6 +217,10 @@ public class SoftDiskFluid {
 
 	public static void main(String[] args) {
 		Config config = new Config();
-		new SoftDiskFluid().run(config);
+
+		SoftDiskFluid softDiskFluid = new SoftDiskFluid();
+		softDiskFluid.run(config);
 	}
+
+
 }

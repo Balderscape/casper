@@ -31,8 +31,8 @@ public class Stage {
 	public Stage() {
 		window = new NativeWindow("Casper");
 
-		Vector3 cameraPosition = new Vector3(3000, 0, 0);
-		camera = new Camera(cameraPosition, 100, 10000);
+		Vector3 cameraPosition = new Vector3(50, 0, 0);
+		camera = new Camera(cameraPosition, 1, 100);
 
 		Scene scene = new Scene(camera);
 

@@ -96,7 +96,7 @@ public class SphereRenderer extends Shape {
 		if (atomListChanged)
 			atomRadiusMaterialBuffer.startLoading(20 * spheres.size());
 		for (Sphere sphere : spheres) {
-			atomPositionBuffer.add(sphere.position);
+			atomPositionBuffer.add(sphere.getPosition());
 			if (atomListChanged) {
 				atomRadiusMaterialBuffer.add((float) sphere.radius);
 				atomRadiusMaterialBuffer.add(sphere.material);

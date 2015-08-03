@@ -13,9 +13,9 @@ import java.awt.*;
  * User: pauls
  * Timestamp: 31/07/2015 11:02 AM
  */
-public class Sphere {
+public abstract class Sphere {
 
-	public Vector3 position = new Vector3();
+	public abstract Vector3 getPosition();
 	public double radius = 1;
 
 	public Color color = Color.BLUE;

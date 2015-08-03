@@ -5,6 +5,7 @@ package au.com.clearboxsystems.casper;
  */
 
 import au.com.clearboxsystems.casper.gl.shape.Sphere;
+import au.com.clearboxsystems.casper.md.Molecule2D;
 import com.jogamp.opengl.GLProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +25,8 @@ public class Casper {
 		Stage stage = new Stage();
 		stage.setExitOnClose(true);
 
-		Sphere sphere = new Sphere();
-		sphere.radius = 152;
+		Sphere sphere = new Molecule2D();
+		sphere.radius = 1;
 		stage.addSphere(sphere);
 
 	}
