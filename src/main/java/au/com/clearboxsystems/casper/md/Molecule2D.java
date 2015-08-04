@@ -17,6 +17,10 @@ public class Molecule2D extends Sphere {
 	public Vector2 velocity;
 	public Vector2 acceleration;
 
+	public Molecule2D() {
+		this.radius = 1.8;
+	}
+
 	@Override
 	public Vector3 getPosition() {
 		return new Vector3(0, position.x, position.y);

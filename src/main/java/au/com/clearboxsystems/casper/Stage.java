@@ -97,4 +97,7 @@ public class Stage {
 		lineRenderer.update();
 	}
 
+	public void clearLines() {
+		lineRenderer.clear();
+	}
 }

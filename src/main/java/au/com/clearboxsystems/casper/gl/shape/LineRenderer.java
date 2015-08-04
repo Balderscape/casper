@@ -31,6 +31,7 @@ public class LineRenderer extends Shape  {
 	private VertexBuffer startStopPositionBuffer;
 	private VertexArray vertexArray;
 	private Uniform u_shininess;
+	private Uniform u_lineRadius;
 
 	public LineRenderer(Scene scene) {
 		super(scene);
@@ -61,6 +62,9 @@ public class LineRenderer extends Shape  {
 
 		u_shininess = shader.getUniform("specularShininess");
 		u_shininess.setValue(0.1);
+
+		u_lineRadius = shader.getUniform("lineRadius");
+		u_lineRadius.setValue(0.1);
 
 		gl.glEnable(GL3.GL_PROGRAM_POINT_SIZE);
 	}

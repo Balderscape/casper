@@ -2,6 +2,8 @@
 
 layout(std140) uniform;
 
+uniform float lineRadius;
+
 in vec3 startPosition;
 in vec3 stopPosition;
 
@@ -21,5 +23,5 @@ void main()
 {
 	gl_Position = worldToCameraMatrix * vec4(startPosition, 1.0);
 	outData.stopPosition = (worldToCameraMatrix * vec4(stopPosition, 1.0)).xyz;
-	outData.radius = 10;
+	outData.radius = lineRadius;
 }

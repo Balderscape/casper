@@ -12,8 +12,8 @@ import au.com.clearboxsystems.casper.math.Vector3;
  */
 public class Line {
 
-	public Vector3 startPosition = new Vector3(0, 0, 0);
-	public Vector3 stopPosition = new Vector3(1, 0, 0);
+	public Vector3 startPosition;
+	public Vector3 stopPosition;
 
 
 

@@ -5,16 +5,8 @@ package au.com.clearboxsystems.casper.md;
  */
 
 import au.com.clearboxsystems.casper.Stage;
-import au.com.clearboxsystems.casper.gl.NativeWindow;
-import au.com.clearboxsystems.casper.gl.scene.Camera;
-import au.com.clearboxsystems.casper.gl.scene.OrbitCameraController;
-import au.com.clearboxsystems.casper.gl.scene.Scene;
-import au.com.clearboxsystems.casper.gl.shader.block.Light;
-import au.com.clearboxsystems.casper.gl.shape.LineRenderer;
-import au.com.clearboxsystems.casper.gl.shape.SphereRenderer;
 import au.com.clearboxsystems.casper.math.Vector2;
 import au.com.clearboxsystems.casper.math.Vector2I;
-import au.com.clearboxsystems.casper.math.Vector3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +26,9 @@ public class SoftDiskFluid {
 	public static class Config {
 		public double deltaT = 0.005;
 		public double density = 0.8;
-		public Vector2I initUnitCell = new Vector2I(20, 20);
+		public Vector2I initUnitCell = new Vector2I(50, 50);
+		public int pathMol = -1;
+		public int lineAvg = 10;
 		public int stepAvg = 100;
 //		public int stepEquil = 0;
 		public int stepLimit = 100000;
@@ -49,6 +43,7 @@ public class SoftDiskFluid {
 	private double velocityMagnitude;
 
 	List<Molecule2D> molecules;
+	Molecule2DPath moleculePath;
 
 	private StatisticalDouble totalEnergy = new StatisticalDouble();
 	private StatisticalDouble kineticEnergy = new StatisticalDouble();
@@ -67,6 +62,10 @@ public class SoftDiskFluid {
 	public void run(Config config) {
 		init(config);
 		LOG.info(" STEP SIM_TIME AVG_VEL TOT_NRGY AVG/SD KIN_NRGY AVG/SD PRESSURE AVG/SD");
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException ignore) {}
 		while (stepCount < config.stepLimit) {
 			singleStep();
 			stage.update();
@@ -86,9 +85,9 @@ public class SoftDiskFluid {
 
 		stage = new Stage();
 		stage.setExitOnClose(true);
-		for (Molecule2D mol : molecules)
+		for (Molecule2D mol : molecules) {
 			stage.addSphere(mol);
-
+		}
 	}
 
 	private void setupParams() {
@@ -107,7 +106,7 @@ public class SoftDiskFluid {
 		for (int nx = 0; nx < config.initUnitCell.x; nx++) {
 			for (int ny = 0; ny < config.initUnitCell.y; ny++) {
 				Molecule2D mol = new Molecule2D();
-				mol.position = new Vector2(nx + 0.5, ny + 0.5).times(gap).add(-0.5);
+				mol.position = new Vector2(nx + 0.5, ny + 0.5).times(gap).sAdd(-0.5, region);
 				mol.velocity = Vector2.rand(velocityMagnitude);
 				velSum.add(mol.velocity);
 				mol.acceleration = new Vector2();
@@ -121,6 +120,9 @@ public class SoftDiskFluid {
 		for (int i = 0; i < nMol; i++) {
 			molecules.get(i).velocity.add(velSum);
 		}
+
+		if (config.pathMol >= 0)
+			moleculePath = new Molecule2DPath(molecules.get(config.pathMol));
 	}
 
 	private void resetStats() {
@@ -141,6 +143,12 @@ public class SoftDiskFluid {
 		if (stepCount % config.stepAvg == 0) {
 			printProperties();
 			resetStats();
+		}
+
+		if (config.pathMol >=0 && stepCount % config.lineAvg == 0) {
+			moleculePath.addPoint(molecules.get(config.pathMol));
+			stage.clearLines();
+			stage.addLines(moleculePath.getLines());
 		}
 	}
 
