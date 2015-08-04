@@ -10,6 +10,7 @@ import au.com.clearboxsystems.casper.math.Vector2I;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class SoftDiskFluid {
 		public double deltaT = 0.005;
 		public double density = 0.8;
 		public Vector2I initUnitCell = new Vector2I(50, 50);
-		public int pathMol = -1;
+		public int pathMol = 1275;
 		public int lineAvg = 10;
 		public int stepAvg = 100;
 //		public int stepEquil = 0;
@@ -85,6 +86,9 @@ public class SoftDiskFluid {
 
 		stage = new Stage();
 		stage.setExitOnClose(true);
+		if(config.pathMol >= 0)
+			molecules.get(config.pathMol).setColor(Color.RED);
+
 		for (Molecule2D mol : molecules) {
 			stage.addSphere(mol);
 		}
