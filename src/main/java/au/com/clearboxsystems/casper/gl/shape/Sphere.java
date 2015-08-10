@@ -18,6 +18,11 @@ public abstract class Sphere {
 	public abstract Vector3 getPosition();
 	public double radius = 1;
 
-	public Color color = Color.BLUE;
+	private Color color = Color.WHITE;
 	public Vector4 material = new Vector4(1, 1, 1, 1);
+
+	public void setColor(Color color) {
+		this.color = color;
+		material.set(color.getRed() / 255.0, color.getGreen() / 255.0, color.getBlue() / 255.0, color.getAlpha() / 255.0);
+	}
 }

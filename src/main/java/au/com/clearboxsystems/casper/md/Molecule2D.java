@@ -8,6 +8,8 @@ import au.com.clearboxsystems.casper.gl.shape.Sphere;
 import au.com.clearboxsystems.casper.math.Vector2;
 import au.com.clearboxsystems.casper.math.Vector3;
 
+import java.awt.*;
+
 /**
  * User: pauls
  * Timestamp: 3/08/2015 2:41 PM
@@ -19,6 +21,7 @@ public class Molecule2D extends Sphere {
 
 	public Molecule2D() {
 		this.radius = 1.8;
+		setColor(Color.orange.darker());
 	}
 
 	@Override
