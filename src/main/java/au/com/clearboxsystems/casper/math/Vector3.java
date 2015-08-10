@@ -172,6 +172,13 @@ public class Vector3 {
 				-y, x, 0);
 	}
 
+	public double dist(Vector3 v) {
+		double a = v.x - x;
+		double b = v.y - y;
+		double c = v.z - z;
+		return Math.sqrt(a * a + b * b + c * c);
+	}
+
 	public double mag() {
 		return Math.sqrt(x * x + y * y + z * z);
 	}
