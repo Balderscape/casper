@@ -1,0 +1,1190 @@
+{
+  "number" : 180,
+  "crystalSystem" : "Hexagonal",
+  "additionalPositionsShortForm" : "",
+  "wyckoffSites" : [ {
+    "code" : "k",
+    "positionsShortForm" : "(x,y,z) (-y,x-y,z+2/3) (-x+y,-x,z+1/3) (-x,-y,z) (y,-x+y,z+2/3) (x-y,x,z+1/3) (y,x,-z+2/3) (x-y,-y,-z) (-x,-x+y,-z+1/3) (-y,-x,-z+2/3) (-x+y,y,-z) (x,x-y,-z+1/3)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : -1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : -1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.3333333333333333
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : -1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : -1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.3333333333333333
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : -1.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : -1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : -1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : -1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : -1.0,
+        "offset" : 0.3333333333333333
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : -1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : -1.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : -1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : -1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : -1.0,
+        "offset" : 0.3333333333333333
+      }
+    } ]
+  }, {
+    "code" : "j",
+    "positionsShortForm" : "(x,2x,1/2) (-2x,-x,1/6) (x,-x,5/6) (-x,-2x,1/2) (2x,x,1/6) (-x,x,5/6)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 2.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : -2.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.16666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.8333333333333334
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : -2.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 2.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.16666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.8333333333333334
+      }
+    } ]
+  }, {
+    "code" : "i",
+    "positionsShortForm" : "(x,2x,0) (-2x,-x,2/3) (x,-x,1/3) (-x,-2x,0) (2x,x,2/3) (-x,x,1/3)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 2.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : -2.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.3333333333333333
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : -2.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 2.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.3333333333333333
+      }
+    } ]
+  }, {
+    "code" : "h",
+    "positionsShortForm" : "(x,0,1/2) (0,x,1/6) (-x,-x,5/6) (-x,0,1/2) (0,-x,1/6) (x,x,5/6)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.16666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.8333333333333334
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.16666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.8333333333333334
+      }
+    } ]
+  }, {
+    "code" : "g",
+    "positionsShortForm" : "(x,0,0) (0,x,2/3) (-x,-x,1/3) (-x,0,0) (0,-x,2/3) (x,x,1/3)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.3333333333333333
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.3333333333333333
+      }
+    } ]
+  }, {
+    "code" : "f",
+    "positionsShortForm" : "(1/2,0,z) (0,1/2,z+2/3) (1/2,1/2,z+1/3) (0,1/2,-z+2/3) (1/2,0,-z) (1/2,1/2,-z+1/3)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.3333333333333333
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : -1.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : -1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : -1.0,
+        "offset" : 0.3333333333333333
+      }
+    } ]
+  }, {
+    "code" : "e",
+    "positionsShortForm" : "(0,0,z) (0,0,z+2/3) (0,0,z+1/3) (0,0,-z+2/3) (0,0,-z) (0,0,-z+1/3)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.3333333333333333
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : -1.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : -1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : -1.0,
+        "offset" : 0.3333333333333333
+      }
+    } ]
+  }, {
+    "code" : "d",
+    "positionsShortForm" : "(1/2,0,1/2) (0,1/2,1/6) (1/2,1/2,5/6)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.16666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.8333333333333334
+      }
+    } ]
+  }, {
+    "code" : "c",
+    "positionsShortForm" : "(1/2,0,0) (0,1/2,2/3) (1/2,1/2,1/3)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.3333333333333333
+      }
+    } ]
+  }, {
+    "code" : "b",
+    "positionsShortForm" : "(0,0,1/2) (0,0,1/6) (0,0,5/6)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.16666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.8333333333333334
+      }
+    } ]
+  }, {
+    "code" : "a",
+    "positionsShortForm" : "(0,0,0) (0,0,2/3) (0,0,1/3)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.3333333333333333
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,490 @@
+{
+  "number" : 99,
+  "crystalSystem" : "Tetragonal",
+  "additionalPositionsShortForm" : "",
+  "wyckoffSites" : [ {
+    "code" : "g",
+    "positionsShortForm" : "(x,y,z) (-x,-y,z) (-y,x,z) (y,-x,z) (x,-y,z) (-x,y,z) (-y,-x,z) (y,x,z)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : -1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : -1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : -1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : -1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 1.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    } ]
+  }, {
+    "code" : "f",
+    "positionsShortForm" : "(x,1/2,z) (-x,1/2,z) (1/2,x,z) (1/2,-x,z)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    } ]
+  }, {
+    "code" : "e",
+    "positionsShortForm" : "(x,0,z) (-x,0,z) (0,x,z) (0,-x,z)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    } ]
+  }, {
+    "code" : "d",
+    "positionsShortForm" : "(x,x,z) (-x,-x,z) (-x,x,z) (x,-x,z)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    } ]
+  }, {
+    "code" : "c",
+    "positionsShortForm" : "(1/2,0,z) (0,1/2,z)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    } ]
+  }, {
+    "code" : "b",
+    "positionsShortForm" : "(1/2,1/2,z)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.5
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    } ]
+  }, {
+    "code" : "a",
+    "positionsShortForm" : "(0,0,z)",
+    "positions" : [ {
+      "xTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "yTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.0
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.0
+      }
+    } ]
+  } ]
+}
