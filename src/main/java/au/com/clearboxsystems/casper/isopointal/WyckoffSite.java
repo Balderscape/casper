@@ -3,8 +3,6 @@ package au.com.clearboxsystems.casper.isopointal;
  * Copyright (C) 2015 Clearbox Systems Pty Ltd
  * http://www.clearboxsystems.com.au
  */
-
-
 import au.com.clearboxsystems.casper.math.Vector3;
 
 import java.util.HashMap;
@@ -69,8 +67,8 @@ public class WyckoffSite {
 	}
 
 	public void parseConfig(String config) {
-	//		"(x,x,x)	(-x,-x,x)	(-x,x,-x)	(x,-x,-x)"
-
+	//  "(x,x,x)	(-x,-x,x)	(-x,x,-x)	(x,-x,-x)"
+	//  "(x,y,z)	(-y,x-y,z+1/3)	(-x+y,-x,z+2/3)"
 		Map<String, Variable> variableMap = new HashMap<>();
 
 		Pattern pattern = Pattern.compile("\\(([^)]+)\\)");

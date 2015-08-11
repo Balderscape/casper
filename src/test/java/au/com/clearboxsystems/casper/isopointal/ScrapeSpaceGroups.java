@@ -11,6 +11,8 @@ import org.testng.annotations.Test;
  */
 public class ScrapeSpaceGroups {
 
+	// 144
+
 	@Test
 	public void testName() throws Exception {
 		Document doc = Jsoup.connect("http://www.cryst.ehu.es/cgi-bin/cryst/programs/nph-wp-list?gnum=" + 29).get();
@@ -30,4 +32,6 @@ public class ScrapeSpaceGroups {
 			System.out.println("mul: " + multiplicity + ", letter: " + wyckoffLetter + " - " + positions);
 		}
 	}
+
+
 }

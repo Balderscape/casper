@@ -17,7 +17,7 @@ import java.util.List;
  * Timestamp: 10/08/2015 10:41 AM
  */
 public class LJEmbeddedAtomPotential {
-	public double Z0       = 12;     // Nearest neighbour interactions
+	public double Z0       = 12;     // Nearest neighbour interactions (ref state)
 	public double A        = 0.5;    // Amount of multi-body bonding
 	public double beta     = 4;      // Decay of electron density
 
