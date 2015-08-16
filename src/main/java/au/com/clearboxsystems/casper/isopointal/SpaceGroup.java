@@ -1,5 +1,7 @@
 package au.com.clearboxsystems.casper.isopointal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,5 +13,11 @@ public class SpaceGroup {
 	public CrystalSystem crystalSystem;
 	public String additionalPositionsShortForm;
 	public List<WyckoffSite> wyckoffSites = new ArrayList<>();
+
+	@JsonIgnore
+	public double a, b, c;
+
+	@JsonIgnore
+	public double alpha, beta, gamma;
 
 }
