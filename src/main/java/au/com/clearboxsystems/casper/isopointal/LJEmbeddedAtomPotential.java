@@ -69,6 +69,10 @@ public class LJEmbeddedAtomPotential {
 	}
 
 	private double computeLJ(double r) {
-		return Math.pow(r, -12.0) - 2 * Math.pow(r, -6.0);
+		//return Math.pow(r, -12.0) - 2 * Math.pow(r, -6.0);
+		double r6;
+		r6=r*r;
+		r6=r6*r6*r6;
+		return 1.0/(r6*r6)-2.0/r6;
 	}
 }
