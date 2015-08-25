@@ -4,6 +4,7 @@ package au.com.clearboxsystems.casper.isopointal;
  * http://www.clearboxsystems.com.au
  */
 
+import au.com.clearboxsystems.casper.math.Vector3;
 import au.com.clearboxsystems.casper.model.Atom;
 
 import java.util.List;
@@ -21,20 +22,20 @@ public class LJEmbeddedAtomPotential {
 	public double A        = 0.5;    // Amount of multi-body bonding
 	public double beta     = 4;      // Decay of electron density
 
-	public double computeEnergy(List<Atom> atoms) {
+	public double computeEnergy(List<Vector3> positions) {
 		double totalEnergy = 0;
 
-		for (int i = 0; i < atoms.size(); i++) {
-			Atom ai = atoms.get(i);
-			totalEnergy += computeF(computeRhoBar(ai, atoms));
+		for (int i = 0; i < positions.size(); i++) {
+			Vector3 ai = positions.get(i);
+			totalEnergy += computeF(computeRhoBar(ai, positions));
 
 			double phiSum = 0;
-			for (int j = 0; j < atoms.size(); j++) {
+			for (int j = 0; j < positions.size(); j++) {
 				if (j == i)
 					continue;
 
-				Atom aj = atoms.get(j);
-				double r = aj.position.dist(ai.position);
+				Vector3 aj = positions.get(j);
+				double r = aj.dist(ai);
 				phiSum += computePhi(r);
 			}
 			totalEnergy += 0.5 * phiSum;
@@ -51,14 +52,14 @@ public class LJEmbeddedAtomPotential {
 		return computeLJ(r) - (2.0 / Z0) * computeF(computeRho(r));
 	}
 
-	private double computeRhoBar(Atom ai, List<Atom> atoms) {
+	private double computeRhoBar(Vector3 ai, List<Vector3> positions) {
 		double rhoSum = 0;
-		for (int j = 0; j < atoms.size(); j++) {
-			Atom aj = atoms.get(j);
+		for (int j = 0; j < positions.size(); j++) {
+			Vector3 aj = positions.get(j);
 			if (aj == ai)
 				continue;
 
-			rhoSum += computeRho(aj.position.dist(aj.position));
+			rhoSum += computeRho(ai.dist(aj));
 		}
 		return rhoSum / Z0;
 	}
