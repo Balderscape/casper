@@ -66,9 +66,9 @@ public class IsopointalSet {
 	// Step Size = 0.01 in the wallpaper code....
 	private static final double STEP_SIZE = 0.01;
 	private int lastUpdateIdx;
-	public void updateRandomVariable() {
+	public void updateRandomVariable(double temperature) {
 		int idx = random.nextInt(basis.length);
-		basis[idx].update(STEP_SIZE);
+		basis[idx].update(temperature * STEP_SIZE);
 		lastUpdateIdx = idx;
 
 		updateBasisAndPositions();
