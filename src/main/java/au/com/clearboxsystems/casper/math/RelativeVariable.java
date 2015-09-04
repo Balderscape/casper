@@ -15,16 +15,17 @@ public class RelativeVariable extends Variable {
 	public RelativeVariable(Random random) {
 		super(random);
 
-		curVal = random.nextDouble(); // FIXME: This may need to be a log or something...
+		curVal = random.nextDouble();
 		lastVal = curVal;
 	}
 
 	public void update(double stepSize) {
 		lastVal = curVal;
-		curVal *= 1 + ((random.nextDouble() - 0.5) * stepSize); // FIXME: This seems to be lob sided, easier to approach one...
+		curVal += (random.nextDouble() - 0.5) * stepSize;
 
 		while (curVal > 1)
 			curVal -= 1;
-
+		while (curVal < 0)
+			curVal += 1;
 	}
 }

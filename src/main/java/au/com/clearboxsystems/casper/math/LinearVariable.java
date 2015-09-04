@@ -12,10 +12,12 @@ import java.util.Random;
  */
 public class LinearVariable extends Variable {
 
+	// FIXME: We probably need a way to initialise this to a sensible unit cell size
+
 	public LinearVariable(Random random) {
 		super(random);
 		minVal = 0;
-		maxVal = 1000; // No more than 1.4 * num atoms
+		maxVal = 20; // No more than 1.4 * num atoms
 
 		range = maxVal - minVal;
 		curVal = minVal + (random.nextDouble() * range);
@@ -26,11 +28,6 @@ public class LinearVariable extends Variable {
 	public void update(double stepSize) {
 		lastVal = curVal;
 
-		double nextVal;
-		do {
-			nextVal = curVal + (random.nextDouble() - 0.5) * range * stepSize;
-		} while (nextVal < minVal || nextVal > maxVal);
-
-		curVal = nextVal;
+		curVal *= (1 + (random.nextDouble() - 0.5) * stepSize); // Still has a bias, fix with logs...
 	}
 }

@@ -54,4 +54,17 @@ public class SpaceGroup {
 			gamma = basis[idx].curVal;
 
 	}
+
+	@Override
+	public String toString() {
+		return "SpaceGroup{" +
+				"crystalSystem=" + crystalSystem +
+				", a=" + a +
+				", b=" + b +
+				", c=" + c +
+				", alpha=" + alpha +
+				", beta=" + beta +
+				", gamma=" + gamma +
+				'}';
+	}
 }

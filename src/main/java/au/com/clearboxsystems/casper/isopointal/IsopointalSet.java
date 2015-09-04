@@ -21,9 +21,13 @@ public class IsopointalSet {
 	private String name;
 	private SpaceGroup spaceGroup;
 	private List<WyckoffSite> wyckoffSites;
+	private List<Vector3> wyckoffPositions;
 
 	private Variable[] basis;
 	private int wyckoffStartIdx;
+
+	private int numPositions;
+	private double[][] distCache;
 
 	public IsopointalSet(String name, SpaceGroup spaceGroup, List<WyckoffSite> wyckoffSites) {
 		this.name = name;
@@ -50,6 +54,15 @@ public class IsopointalSet {
 			basis[b++] = new RelativeVariable(random);
 		}
 		wyckoffStartIdx = linearVariables + angularVariables;
+
+		wyckoffPositions = new ArrayList<>();
+		for (WyckoffSite site : wyckoffSites) {
+			for (WyckoffPosition position : site.positions) {
+				wyckoffPositions.add(new Vector3());
+			}
+		}
+		numPositions = wyckoffPositions.size();
+		distCache = new double[numPositions][numPositions];
 	}
 
 	// Step Size = 0.01 in the wallpaper code....
@@ -59,17 +72,19 @@ public class IsopointalSet {
 		int idx = random.nextInt(basis.length);
 		basis[idx].update(STEP_SIZE);
 		lastUpdateIdx = idx;
+
+		updateBasisAndPositions();
 	}
 
 	public void revertLastUpdate() {
 		basis[lastUpdateIdx].revert();
 	}
 
-	public List<Vector3> getPositions() {
-		List<Vector3> positions = new ArrayList<>();
-
+	void updateBasisAndPositions() {
 		spaceGroup.updateBasis(basis);
+
 		int basisIdx = wyckoffStartIdx;
+		int posIdx = 0;
 		for (WyckoffSite site : wyckoffSites) {
 			Vector3 posVariable = new Vector3();
 			if (site.hasX)
@@ -80,25 +95,52 @@ public class IsopointalSet {
 				posVariable.z = basis[basisIdx++].curVal;
 
 			for (WyckoffPosition wyckoffPosition : site.positions) {
-				positions.add(wyckoffPosition.getPosition(posVariable));
+				wyckoffPositions.get(posIdx++).set(wyckoffPosition.getPosition(posVariable));
 			}
-
-			// FIXME: These positions need to be transformed into the unit cell basis.
 		}
-
-		// FIXME: This is just for one unit cell....
-
-		return positions;
-
+		clearDistCache();
 	}
 
+	public int getNumPositions() {
+		return numPositions;
+	}
+
+	public double getDistBetweenPositions(int idx1, int idx2) {
+		if (distCache[idx1][idx2] == -1) {
+			Vector3 pos1 = wyckoffPositions.get(idx1);
+			Vector3 pos2 = wyckoffPositions.get(idx2);
+
+			double dx = pos1.x - pos2.x;
+			double dy = pos1.y - pos2.y;
+			double dz = pos1.z - pos2.z;
+
+			distCache[idx1][idx2] = Math.sqrt(dx * dx * spaceGroup.a * spaceGroup.a +
+									dy * dy * spaceGroup.b * spaceGroup.b +
+									dz * dz * spaceGroup.c * spaceGroup.c +
+									2 * dx * dy * spaceGroup.a * spaceGroup.b * Math.cos(spaceGroup.gamma) +
+									2 * dy * dz * spaceGroup.b * spaceGroup.c * Math.cos(spaceGroup.alpha) +
+									2 * dz * dx * spaceGroup.c * spaceGroup.a * Math.cos(spaceGroup.beta));
+			distCache[idx2][idx1] = distCache[idx1][idx2];
+		}
+
+		return distCache[idx1][idx2];
+	}
+
+	private void clearDistCache() {
+		for (int i = 0; i < numPositions; i++) {
+			for (int j = 0; j < numPositions; j++) {
+				distCache[i][j] = -1;
+			}
+			distCache[i][i] = 0;
+		}
+	}
 
 	@Override
 	public String toString() {
 		return "IsopointalSet{" +
 				"name='" + name + '\'' +
 				", spaceGroup=" + spaceGroup +
-				", wyckoffSites=" + wyckoffSites +
+				", positions=" + wyckoffPositions +
 				'}';
 	}
 }

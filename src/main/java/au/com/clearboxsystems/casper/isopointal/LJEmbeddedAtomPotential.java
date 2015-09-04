@@ -22,20 +22,21 @@ public class LJEmbeddedAtomPotential {
 	public double A        = 0.5;    // Amount of multi-body bonding
 	public double beta     = 4;      // Decay of electron density
 
-	public double computeEnergy(List<Vector3> positions) {
+	public double computeEnergy(IsopointalSet isopointalSet) {
 		double totalEnergy = 0;
 
-		for (int i = 0; i < positions.size(); i++) {
-			Vector3 ai = positions.get(i);
-			totalEnergy += computeF(computeRhoBar(ai, positions));
+		for (int i = 0; i < isopointalSet.getNumPositions(); i++) {
+//			System.out.println("F = " + computeF(computeRhoBar(i, isopointalSet)));
+			totalEnergy += computeF(computeRhoBar(i, isopointalSet));
 
 			double phiSum = 0;
-			for (int j = 0; j < positions.size(); j++) {
+			for (int j = 0; j < isopointalSet.getNumPositions(); j++) {
 				if (j == i)
 					continue;
 
-				Vector3 aj = positions.get(j);
-				double r = aj.dist(ai);
+				double r = isopointalSet.getDistBetweenPositions(i, j);
+//				System.out.println("r = " + r);
+//				System.out.println("phi = " + computePhi(r));
 				phiSum += computePhi(r);
 			}
 			totalEnergy += 0.5 * phiSum;
@@ -45,27 +46,32 @@ public class LJEmbeddedAtomPotential {
 	}
 
 	private double computeF(double rhoBar) {
+		if (rhoBar == 0) // Limit as rhoBar -> 0 = 0
+			return 0;
 		return (A * Z0 / 2.0) * rhoBar * (Math.log(rhoBar) - 1);
 	}
 
 	private double computePhi(double r) {
+//		System.out.println("LJ = " + computeLJ(r));
+//		System.out.println("Rho = " + computeRho(r));
+//		System.out.println("F = " + computeF(computeRho(r)));
 		return computeLJ(r) - (2.0 / Z0) * computeF(computeRho(r));
 	}
 
-	private double computeRhoBar(Vector3 ai, List<Vector3> positions) {
+	private double computeRhoBar(int i, IsopointalSet isopointalSet) {
 		double rhoSum = 0;
-		for (int j = 0; j < positions.size(); j++) {
-			Vector3 aj = positions.get(j);
-			if (aj == ai)
+		for (int j = 0; j < isopointalSet.getNumPositions(); j++) {
+			if (j == i)
 				continue;
 
-			rhoSum += computeRho(ai.dist(aj));
+			rhoSum += computeRho(isopointalSet.getDistBetweenPositions(i, j));
 		}
 		return rhoSum / Z0;
 	}
 
 
 	private double computeRho(double r) {
+//		System.out.println("e^" + (-beta*(r - 1.0)));
 		return Math.exp(-beta*(r - 1.0));
 	}
 
