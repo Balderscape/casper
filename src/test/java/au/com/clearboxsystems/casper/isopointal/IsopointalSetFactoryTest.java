@@ -20,6 +20,9 @@ public class IsopointalSetFactoryTest {
 
 	@Test
 	public void testGetIsopointalSet() throws Exception {
+		double startkT = 1;
+		double endkT = 0.001;
+
 		IsopointalSetFactory isopointalSetFactory = new IsopointalSetFactory();
 
 		IsopointalSet isopointalSet = isopointalSetFactory.getIsopointalSet(16, new String[] {"a", "j", "m"});
@@ -27,21 +30,27 @@ public class IsopointalSetFactoryTest {
 
 		isopointalSet.updateRandomVariable();
 		double energy = pot.computeEnergy(isopointalSet);
-		System.out.println("Starting Energy = " + energy);
 
 		double lastEnergy = energy;
 		int rejectCount = 0;
 		int TOTAL_TRIALS = 1000000;
 		for (int i = 0; i < TOTAL_TRIALS; i++) {
+			// FIXME: Something is wrong with this line but I cannot see what.... Needs to be geometric!
+			double kT = startkT + ((endkT - startkT) * i / TOTAL_TRIALS);
+			if (i % 10000 == 0)
+				System.out.println("kT = " + kT + ", Energy = " + lastEnergy);
+
 			isopointalSet.updateRandomVariable();
 			energy = pot.computeEnergy(isopointalSet);
-			if (energy > lastEnergy) {
-				isopointalSet.revertLastUpdate();
-//				System.out.println("Energy = " + energy + " - REJECTED");
-				rejectCount++;
+
+			double deltaEnergy = energy - lastEnergy;
+			if (deltaEnergy < 0 || isopointalSet.random.nextDouble() < Math.exp(-deltaEnergy / kT)) {
+				// Accept
+				lastEnergy = deltaEnergy;
 			} else {
-				lastEnergy = energy;
-//				System.out.println("Energy = " + energy + " - ACCEPTED");
+				// Reject
+				isopointalSet.revertLastUpdate();
+				rejectCount++;
 			}
 		}
 		System.out.println("Final Energy = " + energy);
