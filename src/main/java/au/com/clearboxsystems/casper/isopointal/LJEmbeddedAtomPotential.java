@@ -4,9 +4,7 @@ package au.com.clearboxsystems.casper.isopointal;
  * http://www.clearboxsystems.com.au
  */
 
-import au.com.clearboxsystems.casper.math.Vector3;
-import au.com.clearboxsystems.casper.model.Atom;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,27 +20,53 @@ public class LJEmbeddedAtomPotential {
 	public double A        = 0.5;    // Amount of multi-body bonding
 	public double beta     = 4;      // Decay of electron density
 
+	public double Rcutoff = 2;      // Atoms further away than this value are ignored
+
+	private List<Double> interAtomicDistances[];
+
 	public double computeEnergy(IsopointalSet isopointalSet) {
 		double totalEnergy = 0;
 
+		generateInterAtomDistances(isopointalSet);
+
 		for (int i = 0; i < isopointalSet.getNumPositions(); i++) {
-//			System.out.println("F = " + computeF(computeRhoBar(i, isopointalSet)));
-			totalEnergy += computeF(computeRhoBar(i, isopointalSet));
+			totalEnergy += computeF(computeRhoBar(interAtomicDistances[i]));
 
 			double phiSum = 0;
-			for (int j = 0; j < isopointalSet.getNumPositions(); j++) {
-				if (j == i)
-					continue;
-
-				double r = isopointalSet.getDistBetweenPositions(i, j);
-//				System.out.println("r = " + r);
-//				System.out.println("phi = " + computePhi(r));
-				phiSum += computePhi(r);
+			for (double dist : interAtomicDistances[i]) {
+				phiSum += computePhi(dist);
 			}
 			totalEnergy += 0.5 * phiSum;
 		}
 
 		return totalEnergy;
+	}
+
+	private void generateInterAtomDistances(IsopointalSet isopointalSet) {
+		int numAtoms = isopointalSet.getNumPositions();
+		interAtomicDistances = new List[numAtoms];
+		for (int i = 0; i < numAtoms; i++) {
+			interAtomicDistances[i] = new ArrayList<>();
+			for (int j = 0; j < numAtoms; j++) {
+
+				int dx = (int)Math.ceil(Rcutoff / isopointalSet.spaceGroup.a);
+				int dy = (int)Math.ceil(Rcutoff / isopointalSet.spaceGroup.b);
+				int dz = (int)Math.ceil(Rcutoff / isopointalSet.spaceGroup.c);
+
+				for (int x = -dx; x <= dx; x++) {
+					for (int y = -dy; y <= dy; y++) {
+						for (int z = -dz; z <= dz; z++) {
+							if (x == 0 && y == 0 && z == 0 && i == j)
+								continue;
+
+							double r = isopointalSet.getDistBetweenPositions(i, j, x, y, z);
+							if (r <= Rcutoff)
+								interAtomicDistances[i].add(r);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	private double computeF(double rhoBar) {
@@ -52,31 +76,23 @@ public class LJEmbeddedAtomPotential {
 	}
 
 	private double computePhi(double r) {
-//		System.out.println("LJ = " + computeLJ(r));
-//		System.out.println("Rho = " + computeRho(r));
-//		System.out.println("F = " + computeF(computeRho(r)));
 		return computeLJ(r) - (2.0 / Z0) * computeF(computeRho(r));
 	}
 
-	private double computeRhoBar(int i, IsopointalSet isopointalSet) {
+	private double computeRhoBar(List<Double> interAtomicDistances) {
 		double rhoSum = 0;
-		for (int j = 0; j < isopointalSet.getNumPositions(); j++) {
-			if (j == i)
-				continue;
-
-			rhoSum += computeRho(isopointalSet.getDistBetweenPositions(i, j));
+		for (double dist : interAtomicDistances) {
+			rhoSum += computeRho(dist);
 		}
 		return rhoSum / Z0;
 	}
 
 
 	private double computeRho(double r) {
-//		System.out.println("e^" + (-beta*(r - 1.0)));
 		return Math.exp(-beta*(r - 1.0));
 	}
 
 	private double computeLJ(double r) {
-		//return Math.pow(r, -12.0) - 2 * Math.pow(r, -6.0);
 		double r6;
 		r6=r*r;
 		r6=r6*r6*r6;

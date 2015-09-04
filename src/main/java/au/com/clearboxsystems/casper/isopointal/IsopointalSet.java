@@ -16,10 +16,10 @@ import java.util.Random;
  */
 public class IsopointalSet {
 
-	Random random = new Random(1);
+	Random random = new Random();
 
 	private String name;
-	private SpaceGroup spaceGroup;
+	protected SpaceGroup spaceGroup;
 	private List<WyckoffSite> wyckoffSites;
 	private List<Vector3> wyckoffPositions;
 
@@ -27,7 +27,6 @@ public class IsopointalSet {
 	private int wyckoffStartIdx;
 
 	private int numPositions;
-	private double[][] distCache;
 
 	public IsopointalSet(String name, SpaceGroup spaceGroup, List<WyckoffSite> wyckoffSites) {
 		this.name = name;
@@ -62,7 +61,6 @@ public class IsopointalSet {
 			}
 		}
 		numPositions = wyckoffPositions.size();
-		distCache = new double[numPositions][numPositions];
 	}
 
 	// Step Size = 0.01 in the wallpaper code....
@@ -98,41 +96,26 @@ public class IsopointalSet {
 				wyckoffPositions.get(posIdx++).set(wyckoffPosition.getPosition(posVariable));
 			}
 		}
-		clearDistCache();
 	}
 
 	public int getNumPositions() {
 		return numPositions;
 	}
 
-	public double getDistBetweenPositions(int idx1, int idx2) {
-		if (distCache[idx1][idx2] == -1) {
-			Vector3 pos1 = wyckoffPositions.get(idx1);
-			Vector3 pos2 = wyckoffPositions.get(idx2);
+	public double getDistBetweenPositions(int idx1, int idx2, int xOff, int yOff, int zOff) {
+		Vector3 pos1 = wyckoffPositions.get(idx1);
+		Vector3 pos2 = wyckoffPositions.get(idx2);
 
-			double dx = pos1.x - pos2.x;
-			double dy = pos1.y - pos2.y;
-			double dz = pos1.z - pos2.z;
+		double dx = pos1.x - pos2.x + xOff;
+		double dy = pos1.y - pos2.y + yOff;
+		double dz = pos1.z - pos2.z + zOff;
 
-			distCache[idx1][idx2] = Math.sqrt(dx * dx * spaceGroup.a * spaceGroup.a +
-									dy * dy * spaceGroup.b * spaceGroup.b +
-									dz * dz * spaceGroup.c * spaceGroup.c +
-									2 * dx * dy * spaceGroup.a * spaceGroup.b * Math.cos(spaceGroup.gamma) +
-									2 * dy * dz * spaceGroup.b * spaceGroup.c * Math.cos(spaceGroup.alpha) +
-									2 * dz * dx * spaceGroup.c * spaceGroup.a * Math.cos(spaceGroup.beta));
-			distCache[idx2][idx1] = distCache[idx1][idx2];
-		}
-
-		return distCache[idx1][idx2];
-	}
-
-	private void clearDistCache() {
-		for (int i = 0; i < numPositions; i++) {
-			for (int j = 0; j < numPositions; j++) {
-				distCache[i][j] = -1;
-			}
-			distCache[i][i] = 0;
-		}
+		return Math.sqrt(dx * dx * spaceGroup.a * spaceGroup.a +
+								dy * dy * spaceGroup.b * spaceGroup.b +
+								dz * dz * spaceGroup.c * spaceGroup.c +
+								2 * dx * dy * spaceGroup.a * spaceGroup.b * Math.cos(spaceGroup.gamma) +
+								2 * dy * dz * spaceGroup.b * spaceGroup.c * Math.cos(spaceGroup.alpha) +
+								2 * dz * dx * spaceGroup.c * spaceGroup.a * Math.cos(spaceGroup.beta));
 	}
 
 	@Override
