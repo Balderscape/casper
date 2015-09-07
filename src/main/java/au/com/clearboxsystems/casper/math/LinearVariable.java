@@ -16,8 +16,8 @@ public class LinearVariable extends Variable {
 
 	public LinearVariable(Random random) {
 		super(random);
-		minVal = 2;
-		maxVal = 5; // No more than 1.4 * num atoms
+		minVal = 0.5;
+		maxVal = 0.5; // No more than 1.4 * num atoms
 
 		range = maxVal - minVal;
 		curVal = minVal + (random.nextDouble() * range);
