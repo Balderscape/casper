@@ -23,6 +23,7 @@ public class IsopointalSetFactoryTest {
 		double startkT = 2;
 		double endT = 0.01;
 
+//		int TOTAL_TRIALS = 1000000;
 		int TOTAL_TRIALS = 1000000;
 
 		double geometricStep = Math.pow(endT/startkT, 1.0/TOTAL_TRIALS);
@@ -30,8 +31,8 @@ public class IsopointalSetFactoryTest {
 
 		IsopointalSetFactory isopointalSetFactory = new IsopointalSetFactory();
 
-//		IsopointalSet isopointalSet = isopointalSetFactory.getIsopointalSet(16, new String[]{"a", "j", "m"});
-		IsopointalSet isopointalSet = isopointalSetFactory.getIsopointalSet(225, new String[]{"a"});
+		IsopointalSet isopointalSet = isopointalSetFactory.getIsopointalSet(16, new String[]{"a", "j", "m"});
+//		IsopointalSet isopointalSet = isopointalSetFactory.getIsopointalSet(225, new String[]{"a"});
 		LJEmbeddedAtomPotential pot = new LJEmbeddedAtomPotential();
 
 		isopointalSet.updateRandomVariable(startkT);

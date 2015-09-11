@@ -21,12 +21,27 @@ public class IsopointalSet {
 	private String name;
 	protected SpaceGroup spaceGroup;
 	private List<WyckoffSite> wyckoffSites;
-	private List<Vector3> wyckoffPositions;
+//	private List<Vector3> wyckoffPositions;
 
 	private Variable[] basis;
 	private int wyckoffStartIdx;
 
 	private int numPositions;
+
+	private double a, b, c;
+	private double cosAlpha;
+	private double cosBeta;
+	private double cosGamma;
+	private double sinGamma;
+	private double invSinGamma;
+	private double unitVolume;
+
+	private Vector3 vecA = new Vector3();
+	private Vector3 vecB = new Vector3();
+	private Vector3 vecC = new Vector3();
+
+	private Vector3[] cartesianPositions;
+	private int[] multiplicity;
 
 	public IsopointalSet(String name, SpaceGroup spaceGroup, List<WyckoffSite> wyckoffSites) {
 		this.name = name;
@@ -54,13 +69,26 @@ public class IsopointalSet {
 		}
 		wyckoffStartIdx = linearVariables + angularVariables;
 
-		wyckoffPositions = new ArrayList<>();
+		numPositions = 0;
 		for (WyckoffSite site : wyckoffSites) {
 			for (WyckoffPosition position : site.positions) {
-				wyckoffPositions.add(new Vector3());
+				numPositions++;
 			}
 		}
-		numPositions = wyckoffPositions.size();
+
+		cartesianPositions = new Vector3[numPositions];
+		multiplicity = new int[numPositions];
+
+		for (int i = 0; i < numPositions; i++) {
+			cartesianPositions[i] = new Vector3();
+		}
+
+		int idx = 0;
+		for (WyckoffSite site : wyckoffSites) {
+			int mult = site.positions.size();
+			for (int i = 0; i < mult; i++)
+				multiplicity[idx++] = mult;
+		}
 	}
 
 	// Step Size = 0.01 in the wallpaper code....
@@ -81,6 +109,20 @@ public class IsopointalSet {
 	void updateBasisAndPositions() {
 		spaceGroup.updateBasis(basis);
 
+		a = spaceGroup.a;
+		b = spaceGroup.b;
+		c = spaceGroup.c;
+		cosAlpha = Math.cos(spaceGroup.alpha);
+		cosBeta = Math.cos(spaceGroup.beta);
+		cosGamma = Math.cos(spaceGroup.gamma);
+		sinGamma = Math.sin(spaceGroup.gamma);
+		invSinGamma = 1.0 / sinGamma;
+		unitVolume = Math.sqrt(1 - cosAlpha * cosAlpha - cosBeta * cosBeta - cosGamma * cosGamma + 2 * cosAlpha * cosBeta * cosGamma);
+
+		transformToCartesian(new Vector3(1, 0, 0), vecA);
+		transformToCartesian(new Vector3(0, 1, 0), vecB);
+		transformToCartesian(new Vector3(0, 0, 1), vecC);
+
 		int basisIdx = wyckoffStartIdx;
 		int posIdx = 0;
 		for (WyckoffSite site : wyckoffSites) {
@@ -92,8 +134,10 @@ public class IsopointalSet {
 			if (site.hasZ)
 				posVariable.z = basis[basisIdx++].curVal;
 
+//			transformToCartesian(site.positions.get(0).getPosition(posVariable), cartesianPositions[posIdx++]);
 			for (WyckoffPosition wyckoffPosition : site.positions) {
-				wyckoffPositions.get(posIdx++).set(wyckoffPosition.getPosition(posVariable));
+//				wyckoffPositions.get(posIdx++).set(wyckoffPosition.getPosition(posVariable));
+				transformToCartesian(wyckoffPosition.getPosition(posVariable), cartesianPositions[posIdx++]);
 			}
 		}
 	}
@@ -102,20 +146,45 @@ public class IsopointalSet {
 		return numPositions;
 	}
 
-	public double getDistBetweenPositions(int idx1, int idx2, int xOff, int yOff, int zOff) {
-		Vector3 pos1 = wyckoffPositions.get(idx1);
-		Vector3 pos2 = wyckoffPositions.get(idx2);
+	public int getMultiplicity(int position) {
+		return multiplicity[position];
+	}
 
-		double dx = pos1.x - pos2.x + xOff;
-		double dy = pos1.y - pos2.y + yOff;
-		double dz = pos1.z - pos2.z + zOff;
+	public double getDistSqBetweenPositions(int idx1, int idx2, int xOff, int yOff, int zOff) {
+		Vector3 pos1 = cartesianPositions[idx1];
+		Vector3 pos2 = cartesianPositions[idx2];
+//
+//		Vector3 distSq = pos1.nSub(pos2);
+//		distSq.scaleAdd(-xOff, vecA);
+//		distSq.scaleAdd(-yOff, vecB);
+//		distSq.scaleAdd(-zOff, vecC);
+//
+//		return distSq.mag2();
 
-		return Math.sqrt(dx * dx * spaceGroup.a * spaceGroup.a +
-								dy * dy * spaceGroup.b * spaceGroup.b +
-								dz * dz * spaceGroup.c * spaceGroup.c +
-								2 * dx * dy * spaceGroup.a * spaceGroup.b * Math.cos(spaceGroup.gamma) +
-								2 * dy * dz * spaceGroup.b * spaceGroup.c * Math.cos(spaceGroup.alpha) +
-								2 * dz * dx * spaceGroup.c * spaceGroup.a * Math.cos(spaceGroup.beta));
+		double dx = pos1.x - pos2.x - xOff * vecA.x - yOff * vecB.x - zOff * vecC.x;
+		double dy = pos1.y - pos2.y - xOff * vecA.y - yOff * vecB.y - zOff * vecC.y;
+		double dz = pos1.z - pos2.z - xOff * vecA.z - yOff * vecB.z - zOff * vecC.z;
+
+		return dx * dx + dy * dy + dz * dz;
+
+
+//		double dx = pos1.x - pos2.x + xOff;
+//		double dy = pos1.y - pos2.y + yOff;
+//		double dz = pos1.z - pos2.z + zOff;
+//
+//		return Math.sqrt(dx * dx * spaceGroup.a * spaceGroup.a +
+//								dy * dy * spaceGroup.b * spaceGroup.b +
+//								dz * dz * spaceGroup.c * spaceGroup.c +
+//								2 * dx * dy * spaceGroup.a * spaceGroup.b * cosGamma +
+//								2 * dy * dz * spaceGroup.b * spaceGroup.c * cosAlpha +
+//								2 * dz * dx * spaceGroup.c * spaceGroup.a * cosBeta);
+	}
+
+
+	private void transformToCartesian(Vector3 relPos, Vector3 resultPos) {
+		resultPos.x = relPos.x * a + relPos.y * b * cosGamma + relPos.z * c * cosBeta;
+		resultPos.y = relPos.y * b * sinGamma + relPos.z * c * (cosAlpha - cosBeta * cosGamma) * invSinGamma;
+		resultPos.z = relPos.z * c * unitVolume * invSinGamma;
 	}
 
 	@Override
@@ -123,7 +192,7 @@ public class IsopointalSet {
 		return "IsopointalSet{" +
 				"name='" + name + '\'' +
 				", spaceGroup=" + spaceGroup +
-				", positions=" + wyckoffPositions +
+//				", positions=" + wyckoffPositions +
 				'}';
 	}
 }
