@@ -97,6 +97,13 @@
             <version>2.6.1</version>
         </dependency>
 
+		<!--Graphing-->
+		<dependency>
+			<groupId>org.jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.19</version>
+		</dependency>
+
         <!--Testing-->
 		<dependency>
 			<groupId>org.testng</groupId>

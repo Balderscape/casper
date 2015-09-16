@@ -16,19 +16,35 @@ import java.util.List;
  * Timestamp: 10/08/2015 10:41 AM
  */
 public class LJEmbeddedAtomPotential {
-	public double Z0       = 12;     // Nearest neighbour interactions (ref state)
-	public double A        = 0.5;    // Amount of multi-body bonding
-	public double beta     = 4;      // Decay of electron density
+	public final double Z0;     // Nearest neighbour interactions (ref state)
+	public final double A;    // Amount of multi-body bonding
+	public final double beta;      // Decay of electron density
 
-	public double Rcutoff = 2;      // Atoms further away than this value are ignored
+	public final double Rcutoff = 1.4;      // Atoms further away than this value are ignored
 
-	private double RcutoffSq = Rcutoff * Rcutoff;
-	private double invZ0 = 1.0 / Z0;
-	private double AZ0On2 = A * Z0 / 2.0;
-	private double minus2OnZ0 = -2.0 / Z0;
+	private final double RcutoffSq;
+	private final double invZ0;
+	private final double AZ0On2;
+	private final double minus2OnZ0;
 
 	private List<Double> interAtomicDistances[];
 	private int[] multiplicity;
+
+	public LJEmbeddedAtomPotential() {
+		this(12, 0.5, 4);
+	}
+
+	public LJEmbeddedAtomPotential(double z0, double a, double beta) {
+		Z0 = z0;
+		A = a;
+		this.beta = beta;
+
+		RcutoffSq = Rcutoff * Rcutoff;
+
+		invZ0 = 1.0 / Z0;
+		AZ0On2 = A * Z0 / 2.0;
+		minus2OnZ0 = -2.0 / Z0;
+	}
 
 	public double computeEnergy(IsopointalSet isopointalSet) {
 		double totalEnergy = 0;
