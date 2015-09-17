@@ -20,7 +20,8 @@ public class LJEmbeddedAtomPotential {
 	public final double A;    // Amount of multi-body bonding
 	public final double beta;      // Decay of electron density
 
-	public final double Rcutoff = 1.4;      // Atoms further away than this value are ignored
+//	public final double Rcutoff = 1.4;      // Atoms further away than this value are ignored
+	public final double Rcutoff = 2.5;      // Atoms further away than this value are ignored
 
 	private final double RcutoffSq;
 	private final double invZ0;
