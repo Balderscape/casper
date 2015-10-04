@@ -16,9 +16,11 @@ import java.util.Random;
  */
 public class IsopointalSet {
 
+    public static final int NUM_SPACE_GROUPS = 230;
+
 	Random random = new Random();
 
-	private String name;
+	public String name;
 	protected SpaceGroup spaceGroup;
 	private List<WyckoffSite> wyckoffSites;
 //	private List<Vector3> wyckoffPositions;
@@ -90,6 +92,15 @@ public class IsopointalSet {
 				multiplicity[idx++] = mult;
 		}
 	}
+
+    public int getDegreesOfFreedom() {
+        int degree = spaceGroup.getLinearDegreesOfFreedom() + spaceGroup.getAngularDegreesOfFreedom();
+        for (WyckoffSite site : wyckoffSites) {
+            degree += site.getDegreesOfFreedom();
+        }
+
+        return degree;
+    }
 
 	// Step Size = 0.01 in the wallpaper code....
 	private static final double STEP_SIZE = 0.01;

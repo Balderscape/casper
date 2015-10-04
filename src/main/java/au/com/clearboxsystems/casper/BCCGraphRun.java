@@ -33,13 +33,13 @@ public class BCCGraphRun {
 
 		x.parallelStream().forEach((A) -> {
 			System.out.println("A: " + A);
-			double energy = simAnneal.findMinimumEnergy(4, 500000, 225, new String[]{"a"}, 12, A, 2);
+			double energy = simAnneal.findMinimumEnergy(4, 500000, 225, new String[]{"a"}, A, 2);
 			FCCenergySeries.add((double)A, energy);
 		});
 
 		x.parallelStream().forEach((A) -> {
 			System.out.println("A: " + A);
-			double energy = simAnneal.findMinimumEnergy(4, 500000, 229, new String[]{"a"}, 12, A, 2);
+			double energy = simAnneal.findMinimumEnergy(4, 500000, 229, new String[]{"a"}, A, 2);
 			BCCenergySeries.add((double)A, energy);
 		});
 
@@ -47,7 +47,7 @@ public class BCCGraphRun {
 //
 //		for (double A = 0; A <= 1.5; A+=0.1) {
 //			System.out.println("A: " + A);
-//			double energy = simAnneal.findMinimumEnergy(2, 100000, 225, new String[]{"a"}, 12, A, 4);
+//			double energy = simAnneal.findMinimumEnergy(2, 100000, 225, new String[]{"a"}, A, 4);
 //			FCCenergySeries.add(A, energy);
 //		}
 //
@@ -68,8 +68,8 @@ public class BCCGraphRun {
 				"Energy",
 				dataset,
 				PlotOrientation.VERTICAL,
-				false,
-				true,
+				true,   // Legend
+				true,   // Tooltips
 				false
 		);
 

@@ -21,7 +21,8 @@ public class LJEmbeddedAtomPotential {
 	public final double beta;      // Decay of electron density
 
 //	public final double Rcutoff = 1.4;      // Atoms further away than this value are ignored
-	public final double Rcutoff = 2.5;      // Atoms further away than this value are ignored
+	public final double Rcutoff = 1.65;      // Compromise that we reached for the run...
+//	public final double Rcutoff = 2.5;      // Atoms further away than this value are ignored
 
 	private final double RcutoffSq;
 	private final double invZ0;
@@ -32,11 +33,11 @@ public class LJEmbeddedAtomPotential {
 	private int[] multiplicity;
 
 	public LJEmbeddedAtomPotential() {
-		this(12, 0.5, 4);
+		this(0.5, 4);
 	}
 
-	public LJEmbeddedAtomPotential(double z0, double a, double beta) {
-		Z0 = z0;
+	public LJEmbeddedAtomPotential(double a, double beta) {
+		Z0 = 12;
 		A = a;
 		this.beta = beta;
 

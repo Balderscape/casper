@@ -19,22 +19,22 @@ public class WyckoffSite {
 	public List<WyckoffPosition> positions = new ArrayList<>();
 
 	@JsonIgnore
-	public boolean hasX;
+	public boolean hasX = false;
 	@JsonIgnore
-	public boolean hasY;
+	public boolean hasY = false;
 	@JsonIgnore
-	public boolean hasZ;
+	public boolean hasZ = false;
 
 	@JsonIgnore
 	boolean init = false;
 
 	private void initDegreesOfFreedom() {
 		for (WyckoffPosition position : positions) {
-			if (!hasX || position.xTransform.xScale != 0 ||position.yTransform.xScale != 0 || position.zTransform.xScale != 0)
+			if (!hasX && (position.xTransform.xScale != 0 ||position.yTransform.xScale != 0 || position.zTransform.xScale != 0))
 				hasX = true;
-			if (!hasY || position.xTransform.yScale != 0 ||position.yTransform.yScale != 0 || position.zTransform.yScale != 0)
+			if (!hasY && (position.xTransform.yScale != 0 ||position.yTransform.yScale != 0 || position.zTransform.yScale != 0))
 				hasY = true;
-			if (!hasZ || position.xTransform.zScale != 0 ||position.yTransform.zScale != 0 || position.zTransform.zScale != 0)
+			if (!hasZ && (position.xTransform.zScale != 0 ||position.yTransform.zScale != 0 || position.zTransform.zScale != 0))
 				hasZ = true;
 		}
 

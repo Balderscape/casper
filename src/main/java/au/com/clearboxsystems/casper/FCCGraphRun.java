@@ -25,7 +25,7 @@ public class FCCGraphRun {
 
 		for (double A = 0; A <= 1.5; A+=0.1) {
 			System.out.println("A: " + A);
-			double energy = simAnneal.findMinimumEnergy(8, 100000, 225, new String[]{"a"}, 12, A, 4);
+			double energy = simAnneal.findMinimumEnergy(8, 100000, 225, new String[]{"a"}, A, 4);
 			energySeries.add(A, energy);
 		}
 

@@ -29,12 +29,28 @@ public class SpaceGroup {
 		return null;
 	}
 
+	public WyckoffSite getWyckoffSite(int idx) {
+        return wyckoffSites.get(idx);
+	}
+
 	public int getLinearDegreesOfFreedom() {
 		return crystalSystem.linearDegreesOfFreedom;
 	}
 	public int getAngularDegreesOfFreedom() {
 		return crystalSystem.angularDegreesOfFreedom;
 	}
+    public int getDegreesOfFreedom() {
+        return getLinearDegreesOfFreedom() + getAngularDegreesOfFreedom();
+    }
+    public int getNumWyckoffSites() { return wyckoffSites.size(); }
+    public int getNumConstrainedWyckoffSites() {
+        int result = 0;
+        for (WyckoffSite site : wyckoffSites)
+            if (site.getDegreesOfFreedom() == 0)
+                result++;
+
+        return result;
+    }
 
 	public void updateBasis(Variable[] basis) {
 		a = basis[crystalSystem.getIdxA()].curVal;

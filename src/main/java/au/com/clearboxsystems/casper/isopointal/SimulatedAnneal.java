@@ -5,7 +5,7 @@ package au.com.clearboxsystems.casper.isopointal;
  */
 public class SimulatedAnneal {
 
-	public double findMinimumEnergy(int numRuns, int trialsPerRun, int spaceGroup, String[] wyckoffSites, double Z0, double A, double beta) {
+	public double findMinimumEnergy(int numRuns, int trialsPerRun, int spaceGroup, String[] wyckoffSites, double A, double beta) {
 		double startkT = 2;
 		double endT = 0.01;
 
@@ -13,7 +13,7 @@ public class SimulatedAnneal {
 		double minEnergy = Double.MAX_VALUE;
 		for (int i = 0; i < numRuns; i++) {
 			IsopointalSet isopointalSet = isopointalSetFactory.getIsopointalSet(spaceGroup, wyckoffSites);
-			double energy = runSimulatedAnneal(trialsPerRun, 2, 0.01, isopointalSet, Z0, A, beta);
+			double energy = runSimulatedAnneal(trialsPerRun, 2, 0.01, isopointalSet, A, beta);
 			if (energy < minEnergy)
 				minEnergy = energy;
 		}
@@ -21,8 +21,8 @@ public class SimulatedAnneal {
 		return minEnergy;
 	}
 
-	private double runSimulatedAnneal(int numTrials, double startkT, double endkT, IsopointalSet isopointalSet, double Z0, double A, double beta) {
-		LJEmbeddedAtomPotential pot = new LJEmbeddedAtomPotential(Z0, A, beta);
+	public double runSimulatedAnneal(int numTrials, double startkT, double endkT, IsopointalSet isopointalSet, double A, double beta) {
+		LJEmbeddedAtomPotential pot = new LJEmbeddedAtomPotential(A, beta);
 
 		double numAtoms = isopointalSet.getNumPositions();
 
