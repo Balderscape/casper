@@ -29,7 +29,7 @@ public class SimulatedAnneal {
 		isopointalSet.updateRandomVariable(1);
 		double energy = pot.computeEnergy(isopointalSet);
 		double lastEnergy = energy;
-		double minEnergy = 0;
+		double minEnergy = Double.MAX_VALUE;
 
 		double kT = startkT;
 		double geometricStep = Math.pow(endkT/startkT, 1.0/numTrials);

@@ -18,10 +18,8 @@ public class IsopointalSetRunner {
 
     public static void main(String[] args) {
         IsopointalSetRunner runner = new IsopointalSetRunner();
-        runner.computeMinEnergies(0.5, 4, 1, 3);
+        runner.computeMinEnergies(0.5, 4, 1, 2);
     }
-
-
 
     public void computeMinEnergies(double A, double beta, int minDegree, int maxDegree) {
         List<IsopointalSet> isopointalSets = generateAllIsopointalSets(minDegree, maxDegree);
@@ -36,7 +34,7 @@ public class IsopointalSetRunner {
             SimulatedAnneal sa = new SimulatedAnneal();
 
             int numRuns = 8;
-            int numTrials = 10000;
+            int numTrials = 10000 * set.getDegreesOfFreedom();
             int sameCount = 0;
             double minEnergy;
             boolean first = true;
@@ -60,7 +58,7 @@ public class IsopointalSetRunner {
                     if (Math.abs(energies[i] - minEnergy) < 0.0001)
                         sameCount++;
                 }
-            } while (sameCount < 6);
+            } while (sameCount < 7);
             System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" + set.name + ":  " + minEnergy + ", numTrials = " + numTrials + " (degree " + set.getDegreesOfFreedom() + ")");
 
             EnergyResult result = new EnergyResult(set.name, minEnergy);
