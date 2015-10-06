@@ -21,7 +21,7 @@ public class IsopointalSetRunnerTest extends TestCase {
         IsopointalSetFactory factory = new IsopointalSetFactory();
 
         SpaceGroup sg = factory.getSpaceGroup(127);
-        List<IsopointalSet> sets = isopointalSetRunner.generateAllIsopointalSets(sg, 10, 0, 2);
+        List<IsopointalSet> sets = isopointalSetRunner.generateAllIsopointalSetsOfDegree(sg, 10, 0, 2);
 
         for (IsopointalSet set : sets) {
             System.out.println(set.name);
@@ -30,7 +30,7 @@ public class IsopointalSetRunnerTest extends TestCase {
 
     public void testGenerateIsopointalSets2() throws Exception {
         IsopointalSetRunner isopointalSetRunner = new IsopointalSetRunner();
-        List<IsopointalSet> sets = isopointalSetRunner.generateAllIsopointalSets(0, 1);
+        List<IsopointalSet> sets = isopointalSetRunner.generateAllIsopointalSetsOfDegree(0, 1);
 
         for (IsopointalSet set : sets) {
             System.out.println(set.name);

@@ -8,9 +8,9 @@ import java.util.List;
 public class EnergyRunResults {
     public double A;
     public double beta;
-    public int minDegree;
-    public int maxDegree;
-    public EnergyResult bestEnergy;
+    public PermType type;
+    public int min;
+    public int max;
     public List<EnergyResult> energies;
 
 }

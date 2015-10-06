@@ -13,22 +13,32 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by pauls on 4/10/15.
  */
 public class IsopointalSetRunner {
+    public static final int MAX_TRIES = 8;
+    // Trouble Sets 208abcij, 81,920,000 trials
 
     IsopointalSetFactory isopointalSetFactory = new IsopointalSetFactory();
 
     public static void main(String[] args) {
         IsopointalSetRunner runner = new IsopointalSetRunner();
-        runner.computeMinEnergies(0.5, 4, 1, 2);
+        runner.computeMinEnergies(0.5, 4, PermType.Combination, 1, 1);
     }
 
-    public void computeMinEnergies(double A, double beta, int minDegree, int maxDegree) {
-        List<IsopointalSet> isopointalSets = generateAllIsopointalSets(minDegree, maxDegree);
+    public void computeMinEnergies(double A, double beta, PermType permType, int min, int max) {
+        List<IsopointalSet> isopointalSets = null;
+        switch(permType) {
+            case Degree:
+                isopointalSets = generateAllIsopointalSetsOfDegree(min, max);
+                break;
+            case Combination:
+                isopointalSets = generateAllIsopointalSetsWithPermutations(min, max);
+                break;
+
+        }
         List<EnergyResult> energyResults = new ArrayList<>();
 
         int numSets = isopointalSets.size();
         System.out.println("Computing energies for " + numSets + " isopointal sets");
         AtomicInteger done = new AtomicInteger();
-        AtomicInteger bestResult = new AtomicInteger();
 
         isopointalSets.parallelStream().forEach((set) -> {
             SimulatedAnneal sa = new SimulatedAnneal();
@@ -38,6 +48,7 @@ public class IsopointalSetRunner {
             int sameCount = 0;
             double minEnergy;
             boolean first = true;
+            int tries = 0;
             do {
                 if (first)
                     first = false;
@@ -58,29 +69,30 @@ public class IsopointalSetRunner {
                     if (Math.abs(energies[i] - minEnergy) < 0.0001)
                         sameCount++;
                 }
-            } while (sameCount < 7);
+                tries++;
+            } while (sameCount < 7 && tries < MAX_TRIES);
             System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" + set.name + ":  " + minEnergy + ", numTrials = " + numTrials + " (degree " + set.getDegreesOfFreedom() + ")");
 
-            EnergyResult result = new EnergyResult(set.name, minEnergy);
+            EnergyResult result = new EnergyResult(set.name, minEnergy, tries < MAX_TRIES);
             synchronized (energyResults) {
                 energyResults.add(result);
-                if (result.energy < energyResults.get(bestResult.get()).energy)
-                    bestResult.set(energyResults.size() - 1);
             }
         });
 
         EnergyRunResults resultSet = new EnergyRunResults();
         resultSet.A = A;
         resultSet.beta = beta;
-        resultSet.minDegree = minDegree;
-        resultSet.maxDegree = maxDegree;
+        resultSet.type = permType;
+        resultSet.min = min;
+        resultSet.max = max;
         resultSet.energies = energyResults;
 
-        EnergyResult best = energyResults.get(bestResult.get());
-        resultSet.bestEnergy = best;
+        Collections.sort(resultSet.energies);
+
+        EnergyResult best = energyResults.get(0);
 
         ObjectMapper om = new ObjectMapper();
-        File file = new File("results/" + A + "-" + beta + "-" + minDegree + "-" + maxDegree + "-" + System.currentTimeMillis());
+        File file = new File("results/" + A + "-" + beta + "-" + permType.name() + " - " + min + "-" + max + "-" + System.currentTimeMillis());
         try {
             om.writerWithDefaultPrettyPrinter().writeValue(file, resultSet);
         } catch (IOException ex) {
@@ -92,20 +104,51 @@ public class IsopointalSetRunner {
 
     }
 
-    public List<IsopointalSet> generateAllIsopointalSets(int minDegreesOfFreedom, int maxDegreesOfFreedom) {
+    public List<IsopointalSet> generateAllIsopointalSetsWithPermutations(int minK, int maxK) {
+        List<IsopointalSet> result = new ArrayList<>();
+        for (int i = 1; i <= IsopointalSet.NUM_SPACE_GROUPS; i++) {
+            SpaceGroup sg = isopointalSetFactory.getSpaceGroup(i);
+
+            int numWyckoffSites = sg.getNumWyckoffSites();
+            String sites = "";
+            for (int j = 0; j < numWyckoffSites; j++) {
+                WyckoffSite site = sg.getWyckoffSite(numWyckoffSites - j - 1);
+                if (site.getDegreesOfFreedom() == 0)
+                    sites += site.code.toLowerCase();
+                else
+                    sites += site.code.toUpperCase();
+            }
+
+            List<String> wyckoffCombinations = new ArrayList<>();
+            for (int j = minK; j <= maxK; j++) {
+                wyckoffCombinations.addAll(generateWyckoffCombinations("", sites, j));
+            }
+
+            for (String wyckoffCombination : wyckoffCombinations) {
+                IsopointalSet set = isopointalSetFactory.getIsopointalSet(sg.number, wyckoffCombination);
+//            System.out.println(set.name + ": " + set.getDegreesOfFreedom());
+                result.add(set);
+            }
+
+        }
+
+        return result;
+    }
+
+    public List<IsopointalSet> generateAllIsopointalSetsOfDegree(int minDegreesOfFreedom, int maxDegreesOfFreedom) {
         List<IsopointalSet> result = new ArrayList<>();
         for (int i = 1; i <= IsopointalSet.NUM_SPACE_GROUPS; i++) {
             SpaceGroup sg = isopointalSetFactory.getSpaceGroup(i);
 
             int k = sg.getNumConstrainedWyckoffSites() + maxDegreesOfFreedom - sg.getDegreesOfFreedom();
-            result.addAll(generateAllIsopointalSets(sg, k, minDegreesOfFreedom, maxDegreesOfFreedom));
+            result.addAll(generateAllIsopointalSetsOfDegree(sg, k, minDegreesOfFreedom, maxDegreesOfFreedom));
         }
 
         return result;
     }
 
 
-    public List<IsopointalSet> generateAllIsopointalSets(SpaceGroup spaceGroup, int k, int minDegreesOfFreedom, int maxDegreesOfFreedom) {
+    public List<IsopointalSet> generateAllIsopointalSetsOfDegree(SpaceGroup spaceGroup, int maxK, int minDegreesOfFreedom, int maxDegreesOfFreedom) {
 
         List<IsopointalSet> result = new ArrayList<>();
 
@@ -120,7 +163,7 @@ public class IsopointalSetRunner {
         }
 
         List<String> wyckoffCombinations = new ArrayList<>();
-        for (int i = 1; i <= k; i++) {
+        for (int i = 1; i <= maxK; i++) {
             wyckoffCombinations.addAll(generateWyckoffCombinations("", sites, i));
         }
 
