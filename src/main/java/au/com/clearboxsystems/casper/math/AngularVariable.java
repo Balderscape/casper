@@ -14,8 +14,8 @@ public class AngularVariable extends Variable {
 
 	public AngularVariable(Random random) {
 		super(random);
-		minVal = 0;
-		maxVal = Math.PI; // FIXME: Does this need to be PI? is 80 degrees equivalent to 100 degrees through symmetry
+		minVal = Math.PI / 6;
+		maxVal = 5 * Math.PI / 6; // FIXME: Does this need to be PI? is 80 degrees equivalent to 100 degrees through symmetry
 
 		range = maxVal - minVal;
 		curVal = minVal + (random.nextDouble() * range);

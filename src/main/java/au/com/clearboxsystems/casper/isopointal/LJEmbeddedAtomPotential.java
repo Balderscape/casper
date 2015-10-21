@@ -75,9 +75,9 @@ public class LJEmbeddedAtomPotential {
 		interAtomicDistances = new List[numAtoms];
 		multiplicity = new int[numAtoms];
 
-		int dx = (int)Math.ceil(Rcutoff / isopointalSet.spaceGroup.a);
-		int dy = (int)Math.ceil(Rcutoff / isopointalSet.spaceGroup.b);
-		int dz = (int)Math.ceil(Rcutoff / isopointalSet.spaceGroup.c);
+		int dz = (int)Math.ceil(Rcutoff / isopointalSet.vecC.z);
+		int dy = (int)Math.ceil((Rcutoff + Math.abs(dz * isopointalSet.vecC.y)) / isopointalSet.vecB.y);
+		int dx = (int)Math.ceil((Rcutoff + Math.abs(dz * isopointalSet.vecC.x) + Math.abs(dy * isopointalSet.vecB.x)) / isopointalSet.vecA.x);
 
 		for (int i = 0; i < numAtoms; i++) {
 			interAtomicDistances[i] = new ArrayList<>();

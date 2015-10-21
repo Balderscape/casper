@@ -7,13 +7,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by pauls on 4/10/15.
  */
 public class IsopointalSetRunner {
-    public static final int MAX_TRIES = 8;
+    public static final int MAX_TRIES = 4;
+    public static final int MIN_SAME = 2;
+    public static final double SAME_EPS = 0.001;
     // Trouble Sets 208abcij, 81,920,000 trials
 
     IsopointalSetFactory isopointalSetFactory = new IsopointalSetFactory();
@@ -24,6 +29,9 @@ public class IsopointalSetRunner {
     }
 
     public void computeMinEnergies(double A, double beta, PermType permType, int min, int max) {
+        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+
         List<IsopointalSet> isopointalSets = null;
         switch(permType) {
             case Degree:
@@ -40,45 +48,74 @@ public class IsopointalSetRunner {
         System.out.println("Computing energies for " + numSets + " isopointal sets");
         AtomicInteger done = new AtomicInteger();
 
-        isopointalSets.parallelStream().forEach((set) -> {
-            SimulatedAnneal sa = new SimulatedAnneal();
+        for (IsopointalSet set : isopointalSets) {
 
-            int numRuns = 8;
-            int numTrials = 10000 * set.getDegreesOfFreedom();
-            int sameCount = 0;
-            double minEnergy;
-            boolean first = true;
-            int tries = 0;
-            do {
-                if (first)
-                    first = false;
-                else
-                    numTrials *= 2;
+            Runnable worker = new Runnable() {
+                @Override
+                public void run() {
+                    SimulatedAnneal sa = new SimulatedAnneal();
 
-                double[] energies = new double[numRuns];
-                for (int i = 0; i < numRuns; i++)
-                    energies[i] = sa.runSimulatedAnneal(numTrials, 2, 0.01, set, A, beta);
+                    int numRuns = 8;
+                    int numTrials = 10000 * set.getDegreesOfFreedom();
+                    int sameCount = 0;
+                    double minEnergy = Double.MAX_VALUE;
+                    IsopointalSetResult minResult = null;
+                    boolean first = true;
+                    int tries = 0;
+                    do {
+                        if (first)
+                            first = false;
+                        else
+                            numTrials *= 2;
 
-                minEnergy = energies[0];
-                for (int i = 1; i < numRuns; i++)
-                    if (energies[i] < minEnergy)
-                        minEnergy = energies[i];
+                        IsopointalSetResult[] results = new IsopointalSetResult[numRuns];
+                        for (int i = 0; i < numRuns; i++)
+                            results[i] = sa.runSimulatedAnneal(numTrials, 2, 0.01, set, A, beta);
 
-                sameCount = 0;
-                for (int i = 0; i < numRuns; i++) {
-                    if (Math.abs(energies[i] - minEnergy) < 0.0001)
-                        sameCount++;
+                        minEnergy = results[0].energyPerAtom;
+                        for (int i = 1; i < numRuns; i++)
+                            if (results[i].energyPerAtom < minEnergy) {
+                                minEnergy = results[i].energyPerAtom;
+                                minResult = results[i];
+                            }
+
+                        sameCount = 0;
+                        for (int i = 0; i < numRuns; i++) {
+                            if (Math.abs(results[i].energyPerAtom - minEnergy) < SAME_EPS)
+                                sameCount++;
+                        }
+                        tries++;
+                    } while (sameCount < MIN_SAME && tries < MAX_TRIES);
+                    System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" + set.name + ":  " + minEnergy + ", numTrials = " + numTrials + " (degree " + set.getDegreesOfFreedom() + ")");
+
+                    EnergyResult result = new EnergyResult(set.name, minEnergy, tries < MAX_TRIES);
+                    synchronized (energyResults) {
+                        energyResults.add(result);
+                    }
+
+                    ObjectMapper om = new ObjectMapper();
+                    String runName = minResult.isopointalSet + "-" + minResult.EAM_A + "-" + minResult.EAM_beta + "-" + System.currentTimeMillis();
+
+                    File file = new File("results/iso/" + runName + ".json");
+                    try {
+                        om.writerWithDefaultPrettyPrinter().writeValue(file, minResult);
+                    } catch (IOException ex) {
+                        System.out.println(ex);
+                        ex.printStackTrace();
+                    }
+
+                    XTLFileGenerator.createXTLFile(minResult, runName);
                 }
-                tries++;
-            } while (sameCount < 7 && tries < MAX_TRIES);
-            System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" + set.name + ":  " + minEnergy + ", numTrials = " + numTrials + " (degree " + set.getDegreesOfFreedom() + ")");
+            };
+            executor.submit(worker);
+        }
 
-            EnergyResult result = new EnergyResult(set.name, minEnergy, tries < MAX_TRIES);
-            synchronized (energyResults) {
-                energyResults.add(result);
-            }
-        });
-
+        executor.shutdown();
+        while(!executor.isTerminated()) {
+            try {
+                executor.awaitTermination(1, TimeUnit.SECONDS);
+            } catch (InterruptedException ignore) {}
+        }
         EnergyRunResults resultSet = new EnergyRunResults();
         resultSet.A = A;
         resultSet.beta = beta;

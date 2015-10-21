@@ -1,5 +1,6 @@
 package au.com.clearboxsystems.casper;
 
+import au.com.clearboxsystems.casper.isopointal.IsopointalSetResult;
 import au.com.clearboxsystems.casper.isopointal.SimulatedAnneal;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -25,8 +26,8 @@ public class FCCGraphRun {
 
 		for (double A = 0; A <= 1.5; A+=0.1) {
 			System.out.println("A: " + A);
-			double energy = simAnneal.findMinimumEnergy(8, 100000, 225, new String[]{"a"}, A, 4);
-			energySeries.add(A, energy);
+			IsopointalSetResult energy = simAnneal.findMinimumEnergy(8, 100000, 225, new String[]{"a"}, A, 4);
+			energySeries.add(A, energy.energyPerAtom);
 		}
 
 		XYSeriesCollection dataset = new XYSeriesCollection();

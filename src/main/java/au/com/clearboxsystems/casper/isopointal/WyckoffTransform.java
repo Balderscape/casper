@@ -19,6 +19,12 @@ public class WyckoffTransform {
 	}
 
 	public double apply(Vector3 v) {
-		return offset + xScale * v.x + yScale * v.y + zScale * v.z;
+		double result = offset + xScale * v.x + yScale * v.y + zScale * v.z;
+		while (result > 1)
+			result -= 1;
+		while (result < 0)
+			result += 1;
+
+		return result;
 	}
 }

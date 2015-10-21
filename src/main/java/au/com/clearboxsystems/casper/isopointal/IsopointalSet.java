@@ -38,9 +38,9 @@ public class IsopointalSet {
 	private double invSinGamma;
 	private double unitVolume;
 
-	private Vector3 vecA = new Vector3();
-	private Vector3 vecB = new Vector3();
-	private Vector3 vecC = new Vector3();
+	public Vector3 vecA = new Vector3();
+	public Vector3 vecB = new Vector3();
+	public Vector3 vecC = new Vector3();
 
 	private Vector3[] cartesianPositions;
 	private int[] multiplicity;
@@ -205,5 +205,44 @@ public class IsopointalSet {
 				", spaceGroup=" + spaceGroup +
 //				", positions=" + wyckoffPositions +
 				'}';
+	}
+
+	public IsopointalSetResult saveResult() {
+		IsopointalSetResult result = new IsopointalSetResult();
+		result.isopointalSet = "" + spaceGroup.number;
+		result.a = a;
+		result.b = b;
+		result.c = c;
+		result.alpha = spaceGroup.alpha;
+		result.beta = spaceGroup.beta;
+		result.gamma = spaceGroup.gamma;
+
+		result.wyckoffSites = new WyckoffSiteResult[numPositions];
+
+		int positionIdx = 0;
+		int basisIdx = 0;
+		for (WyckoffSite site : wyckoffSites) {
+			result.isopointalSet += site.code;
+			Vector3 posVariable = new Vector3();
+			if (site.hasX)
+				posVariable.x = basis[basisIdx++].curVal;
+			if (site.hasY)
+				posVariable.y = basis[basisIdx++].curVal;
+			if (site.hasZ)
+				posVariable.z = basis[basisIdx++].curVal;
+
+
+			for (WyckoffPosition position : site.positions) {
+				WyckoffSiteResult siteResult = new WyckoffSiteResult();
+				Vector3 pos = position.getPosition(posVariable);
+				siteResult.code = site.code;
+				siteResult.relX = pos.x;
+				siteResult.relY = pos.y;
+				siteResult.relZ = pos.z;
+				result.wyckoffSites[positionIdx++] = siteResult;
+			}
+		}
+
+		return result;
 	}
 }

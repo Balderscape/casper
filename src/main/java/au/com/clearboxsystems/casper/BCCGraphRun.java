@@ -1,5 +1,6 @@
 package au.com.clearboxsystems.casper;
 
+import au.com.clearboxsystems.casper.isopointal.IsopointalSetResult;
 import au.com.clearboxsystems.casper.isopointal.SimulatedAnneal;
 import jdk.nashorn.internal.codegen.types.Range;
 import org.jfree.chart.ChartFactory;
@@ -33,14 +34,14 @@ public class BCCGraphRun {
 
 		x.parallelStream().forEach((A) -> {
 			System.out.println("A: " + A);
-			double energy = simAnneal.findMinimumEnergy(4, 500000, 225, new String[]{"a"}, A, 2);
-			FCCenergySeries.add((double)A, energy);
+			IsopointalSetResult energy = simAnneal.findMinimumEnergy(4, 500000, 225, new String[]{"a"}, A, 2);
+			FCCenergySeries.add((double)A, energy.energyPerAtom);
 		});
 
 		x.parallelStream().forEach((A) -> {
 			System.out.println("A: " + A);
-			double energy = simAnneal.findMinimumEnergy(4, 500000, 229, new String[]{"a"}, A, 2);
-			BCCenergySeries.add((double)A, energy);
+			IsopointalSetResult energy = simAnneal.findMinimumEnergy(4, 500000, 229, new String[]{"a"}, A, 2);
+			BCCenergySeries.add((double)A, energy.energyPerAtom);
 		});
 
 //
