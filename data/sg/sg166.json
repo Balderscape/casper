@@ -853,45 +853,7 @@
         "offset" : 0.6666666666666666
       },
       "yTransform" : {
-        "xScale" : 1.0,
-        "yScale" : 0.0,
-        "zScale" : 0.0,
-        "offset" : 2.3333333333333335
-      },
-      "zTransform" : {
-        "xScale" : 0.0,
-        "yScale" : 0.0,
-        "zScale" : 1.0,
-        "offset" : 0.3333333333333333
-      }
-    }, {
-      "xTransform" : {
-        "xScale" : 1.0,
-        "yScale" : 0.0,
-        "zScale" : 0.0,
-        "offset" : 0.3333333333333333
-      },
-      "yTransform" : {
-        "xScale" : 1.0,
-        "yScale" : 0.0,
-        "zScale" : 0.0,
-        "offset" : 2.6666666666666665
-      },
-      "zTransform" : {
-        "xScale" : 0.0,
-        "yScale" : 0.0,
-        "zScale" : 1.0,
-        "offset" : 0.6666666666666666
-      }
-    }, {
-      "xTransform" : {
-        "xScale" : 1.0,
-        "yScale" : 0.0,
-        "zScale" : 0.0,
-        "offset" : -1.3333333333333335
-      },
-      "yTransform" : {
-        "xScale" : -1.0,
+        "xScale" : 2.0,
         "yScale" : 0.0,
         "zScale" : 0.0,
         "offset" : 0.3333333333333333
@@ -907,7 +869,45 @@
         "xScale" : 1.0,
         "yScale" : 0.0,
         "zScale" : 0.0,
-        "offset" : -1.6666666666666667
+        "offset" : 0.3333333333333333
+      },
+      "yTransform" : {
+        "xScale" : 2.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.6666666666666666
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.6666666666666666
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -2.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.6666666666666666
+      },
+      "yTransform" : {
+        "xScale" : -1.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.3333333333333333
+      },
+      "zTransform" : {
+        "xScale" : 0.0,
+        "yScale" : 0.0,
+        "zScale" : 1.0,
+        "offset" : 0.3333333333333333
+      }
+    }, {
+      "xTransform" : {
+        "xScale" : -2.0,
+        "yScale" : 0.0,
+        "zScale" : 0.0,
+        "offset" : 0.3333333333333333
       },
       "yTransform" : {
         "xScale" : -1.0,
@@ -961,10 +961,10 @@
       }
     }, {
       "xTransform" : {
-        "xScale" : 1.0,
+        "xScale" : 2.0,
         "yScale" : 0.0,
         "zScale" : 0.0,
-        "offset" : 2.6666666666666665
+        "offset" : 0.6666666666666666
       },
       "yTransform" : {
         "xScale" : 1.0,
@@ -980,10 +980,10 @@
       }
     }, {
       "xTransform" : {
-        "xScale" : 1.0,
+        "xScale" : 2.0,
         "yScale" : 0.0,
         "zScale" : 0.0,
-        "offset" : 2.3333333333333335
+        "offset" : 0.3333333333333333
       },
       "yTransform" : {
         "xScale" : 1.0,
@@ -1005,10 +1005,10 @@
         "offset" : 0.6666666666666666
       },
       "yTransform" : {
-        "xScale" : 1.0,
+        "xScale" : -2.0,
         "yScale" : 0.0,
         "zScale" : 0.0,
-        "offset" : -1.6666666666666667
+        "offset" : 0.3333333333333333
       },
       "zTransform" : {
         "xScale" : 0.0,
@@ -1024,10 +1024,10 @@
         "offset" : 0.3333333333333333
       },
       "yTransform" : {
-        "xScale" : 1.0,
+        "xScale" : -2.0,
         "yScale" : 0.0,
         "zScale" : 0.0,
-        "offset" : -1.3333333333333335
+        "offset" : 0.6666666666666666
       },
       "zTransform" : {
         "xScale" : 0.0,
