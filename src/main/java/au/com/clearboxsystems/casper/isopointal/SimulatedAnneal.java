@@ -29,7 +29,7 @@ public class SimulatedAnneal {
 
 		double numAtoms = isopointalSet.getNumPositions();
 
-		isopointalSet.updateRandomVariable(1);
+		isopointalSet.updateRandomVariable(1); //must do initial update to make sure crystal variables are set
 		double energy = pot.computeEnergy(isopointalSet);
 		double lastEnergy = energy;
 		double minEnergy = energy;
@@ -40,8 +40,8 @@ public class SimulatedAnneal {
 		double geometricStep = Math.pow(endkT/startkT, 1.0/numTrials);
 		for (int i = 0; i < numTrials; i++) {
 			kT *= geometricStep;
-			if (i % 10000 == 0)
-				System.out.println("kT = " + kT + ", Energy = " + lastEnergy / numAtoms);
+//			if ((i % 10000 == 0)||(lastEnergy==0))
+//				System.out.println("kT = " + kT + ", Energy = " + lastEnergy / numAtoms + ", ax= " + isopointalSet.vecA.x + " by= " + isopointalSet.vecB.y + " cz= " + isopointalSet.vecC.z + ", ay= " + isopointalSet.vecA.y + " az= " + isopointalSet.vecA.z + " bz= " + isopointalSet.vecB.z);
 
 			isopointalSet.updateRandomVariable(1);
 			energy = pot.computeEnergy(isopointalSet);

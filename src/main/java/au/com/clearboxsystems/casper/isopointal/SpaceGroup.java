@@ -20,6 +20,7 @@ public class SpaceGroup {
 
 	@JsonIgnore
 	public double alpha = Math.PI/2, beta = Math.PI/2, gamma = Math.PI/2;
+// if trigonal or hexagonal gamma will be set to 2pi/3 during basis update
 
 	public WyckoffSite getWyckoffSite(String wyckoffSiteLetter) {
 		for (WyckoffSite site : wyckoffSites) {
@@ -68,6 +69,9 @@ public class SpaceGroup {
 		idx = crystalSystem.getIdxGamma();
 		if (idx >= 0)
 			gamma = basis[idx].curVal;
+
+		if (crystalSystem == CrystalSystem.Trigonal || crystalSystem == CrystalSystem.Hexagonal)
+			gamma = 2.0 * Math.PI / 3.0;
 
 	}
 

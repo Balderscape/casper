@@ -16,8 +16,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by pauls on 4/10/15.
  */
 public class IsopointalSetRunner {
-    public static final int MAX_TRIES = 4;
+    public static final int MAX_DOUBLINGS = 4;
     public static final int MIN_SAME = 2;
+    public static final int NUM_RUNS = 4;
     public static final double SAME_EPS = 0.001;
     // Trouble Sets 208abcij, 81,920,000 trials
 
@@ -55,7 +56,6 @@ public class IsopointalSetRunner {
                 public void run() {
                     SimulatedAnneal sa = new SimulatedAnneal();
 
-                    int numRuns = 8;
                     int numTrials = 10000 * set.getDegreesOfFreedom();
                     int sameCount = 0;
                     double minEnergy = Double.MAX_VALUE;
@@ -68,27 +68,27 @@ public class IsopointalSetRunner {
                         else
                             numTrials *= 2;
 
-                        IsopointalSetResult[] results = new IsopointalSetResult[numRuns];
-                        for (int i = 0; i < numRuns; i++)
+                        IsopointalSetResult[] results = new IsopointalSetResult[NUM_RUNS];
+                        for (int i = 0; i < NUM_RUNS; i++)
                             results[i] = sa.runSimulatedAnneal(numTrials, 2, 0.01, set, A, beta);
 
                         minEnergy = results[0].energyPerAtom;
-                        for (int i = 1; i < numRuns; i++)
+                        for (int i = 1; i < NUM_RUNS; i++)
                             if (results[i].energyPerAtom < minEnergy) {
                                 minEnergy = results[i].energyPerAtom;
                                 minResult = results[i];
                             }
 
                         sameCount = 0;
-                        for (int i = 0; i < numRuns; i++) {
+                        for (int i = 0; i < NUM_RUNS; i++) {
                             if (Math.abs(results[i].energyPerAtom - minEnergy) < SAME_EPS)
                                 sameCount++;
                         }
                         tries++;
-                    } while (sameCount < MIN_SAME && tries < MAX_TRIES);
+                    } while (sameCount < MIN_SAME && tries < MAX_DOUBLINGS);
                     System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" + set.name + ":  " + minEnergy + ", numTrials = " + numTrials + " (degree " + set.getDegreesOfFreedom() + ")");
 
-                    EnergyResult result = new EnergyResult(set.name, minEnergy, tries < MAX_TRIES);
+                    EnergyResult result = new EnergyResult(set.name, minEnergy, tries < MAX_DOUBLINGS);
                     synchronized (energyResults) {
                         energyResults.add(result);
                     }

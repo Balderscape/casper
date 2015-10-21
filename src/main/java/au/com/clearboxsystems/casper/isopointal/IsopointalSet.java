@@ -105,9 +105,9 @@ public class IsopointalSet {
 	// Step Size = 0.01 in the wallpaper code....
 	private static final double STEP_SIZE = 0.01;
 	private int lastUpdateIdx;
-	public void updateRandomVariable(double temperature) {
+	public void updateRandomVariable(double step_size_reduction_factor) {
 		int idx = random.nextInt(basis.length);
-		basis[idx].update(temperature * STEP_SIZE);
+		basis[idx].update(step_size_reduction_factor * STEP_SIZE);
 		lastUpdateIdx = idx;
 
 		updateBasisAndPositions();
@@ -133,6 +133,11 @@ public class IsopointalSet {
 		transformToCartesian(new Vector3(1, 0, 0), vecA);
 		transformToCartesian(new Vector3(0, 1, 0), vecB);
 		transformToCartesian(new Vector3(0, 0, 1), vecC);
+
+		// TSH added
+		if (vecA.isUndefined()) {
+			System.out.println("cartesian conversion failed: unitvolume = "+unitVolume+" , insqrt = " +  (1 - cosAlpha * cosAlpha - cosBeta * cosBeta - cosGamma * cosGamma + 2 * cosAlpha * cosBeta * cosGamma) + ", alpha = " +(spaceGroup.alpha*180/3.1415)+ ", beta = " +(spaceGroup.beta*180/3.1415)+ ", gamma = " +(spaceGroup.gamma*180/3.1415) );
+		}
 
 		int basisIdx = wyckoffStartIdx;
 		int posIdx = 0;

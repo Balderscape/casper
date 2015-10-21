@@ -720,10 +720,10 @@
         "offset" : 0.0
       },
       "yTransform" : {
-        "xScale" : 1.0,
+        "xScale" : 2.0,
         "yScale" : 0.0,
         "zScale" : 0.0,
-        "offset" : 2.0
+        "offset" : 0.0
       },
       "zTransform" : {
         "xScale" : 0.0,
@@ -733,10 +733,10 @@
       }
     }, {
       "xTransform" : {
-        "xScale" : 1.0,
+        "xScale" : -2.0,
         "yScale" : 0.0,
         "zScale" : 0.0,
-        "offset" : -2.0
+        "offset" : 0.0
       },
       "yTransform" : {
         "xScale" : -1.0,
@@ -771,10 +771,10 @@
       }
     }, {
       "xTransform" : {
-        "xScale" : 1.0,
+        "xScale" : 2.0,
         "yScale" : 0.0,
         "zScale" : 0.0,
-        "offset" : 2.0
+        "offset" : 0.0
       },
       "yTransform" : {
         "xScale" : 1.0,
@@ -796,10 +796,10 @@
         "offset" : 0.0
       },
       "yTransform" : {
-        "xScale" : 1.0,
+        "xScale" : -2.0,
         "yScale" : 0.0,
         "zScale" : 0.0,
-        "offset" : -2.0
+        "offset" : 0.0
       },
       "zTransform" : {
         "xScale" : 0.0,
