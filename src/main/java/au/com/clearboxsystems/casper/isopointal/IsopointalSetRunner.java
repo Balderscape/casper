@@ -25,8 +25,17 @@ public class IsopointalSetRunner {
     IsopointalSetFactory isopointalSetFactory = new IsopointalSetFactory();
 
     public static void main(String[] args) {
+        File iso = new File("results/iso");
+        File xtl = new File("results/xtl");
+
+        if (!iso.exists())
+            iso.mkdirs();
+
+        if (!xtl.exists())
+            xtl.mkdirs();
+
         IsopointalSetRunner runner = new IsopointalSetRunner();
-        runner.computeMinEnergies(0.5, 4, PermType.Combination, 1, 1);
+        runner.computeMinEnergies(0.5, 4, PermType.Combination, 2, 2);
     }
 
     public void computeMinEnergies(double A, double beta, PermType permType, int min, int max) {
