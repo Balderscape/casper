@@ -17,10 +17,17 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class IsopointalSetRunner {
     public static final int MAX_DOUBLINGS = 4;
-    public static final int MIN_SAME = 2;
-    public static final int NUM_RUNS = 4;
+    public static final int MIN_SAME = 4;
+    public static final int NUM_RUNS = 5;
     public static final double SAME_EPS = 0.001;
     // Trouble Sets 208abcij, 81,920,000 trials
+    /*
+    FCC - 225a
+    BCC - 229a
+    SC - 221a
+    DC - 227a
+    Graphite - 194bc (or 194a)
+     */
 
     IsopointalSetFactory isopointalSetFactory = new IsopointalSetFactory();
 
@@ -35,11 +42,11 @@ public class IsopointalSetRunner {
             xtl.mkdirs();
 
         IsopointalSetRunner runner = new IsopointalSetRunner();
-        runner.computeMinEnergies(0.5, 4, PermType.Combination, 2, 2);
+        runner.computeMinEnergies(1.4, 11, PermType.Combination, 1, 1);
     }
 
     public void computeMinEnergies(double A, double beta, PermType permType, int min, int max) {
-        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
 
 
         List<IsopointalSet> isopointalSets = null;
@@ -55,7 +62,7 @@ public class IsopointalSetRunner {
         List<EnergyResult> energyResults = new ArrayList<>();
 
         int numSets = isopointalSets.size();
-        System.out.println("Computing energies for " + numSets + " isopointal sets");
+        System.out.println("Computing energies for " + numSets + " isopointal sets on " + (Runtime.getRuntime().availableProcessors() - 1) + " CPUs");
         AtomicInteger done = new AtomicInteger();
 
         for (IsopointalSet set : isopointalSets) {
