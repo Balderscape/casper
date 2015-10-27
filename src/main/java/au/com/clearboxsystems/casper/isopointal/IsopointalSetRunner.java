@@ -143,7 +143,9 @@ public class IsopointalSetRunner {
 
                     XTLFileGenerator.createXTLFile(resultPath, minResult, runName);
                     CIFFileGenerator.createCIFFile(resultPath, minResult, runName);
-                    minResults.add(minResult);
+                    synchronized (minResults) {
+                        minResults.add(minResult);
+                    }
                 }
             };
             executor.submit(worker);
@@ -162,27 +164,28 @@ public class IsopointalSetRunner {
         resultSet.min = min;
         resultSet.max = max;
 
-        Collections.sort(minResults);
+        synchronized (minResults) {
+            Collections.sort(minResults);
 
-        List<EnergyResult> energyResults = new ArrayList<>();
-        for (IsopointalSetResult isoResult : minResults)
-            energyResults.add(new EnergyResult(isoResult.isopointalSet, isoResult.energyPerAtom, !isoResult.timeoutBeforeMinFound, isoResult.density));
+            List<EnergyResult> energyResults = new ArrayList<>();
+            for (IsopointalSetResult isoResult : minResults)
+                energyResults.add(new EnergyResult(isoResult.isopointalSet, isoResult.energyPerAtom, !isoResult.timeoutBeforeMinFound, isoResult.density));
 
-        resultSet.energies = energyResults;
-        EnergyResult best = energyResults.get(0);
+            resultSet.energies = energyResults;
+            EnergyResult best = energyResults.get(0);
 
-        ObjectMapper om = new ObjectMapper();
-        File file = new File(resultPath + "/" + A + "-" + beta + "-" + permType.name() + " - " + min + "-" + max + "-" + System.currentTimeMillis());
-        try {
-            om.writerWithDefaultPrettyPrinter().writeValue(file, resultSet);
-        } catch (IOException ex) {
-            System.out.println(ex);
-            ex.printStackTrace();
+            ObjectMapper om = new ObjectMapper();
+            File file = new File(resultPath + "/" + A + "-" + beta + "-" + permType.name() + " - " + min + "-" + max + "-" + System.currentTimeMillis());
+            try {
+                om.writerWithDefaultPrettyPrinter().writeValue(file, resultSet);
+            } catch (IOException ex) {
+                System.out.println(ex);
+                ex.printStackTrace();
+            }
+
+            System.out.println("Run took " + ((startTime - System.currentTimeMillis()) / 1000.0 / 60.0) + " minutes" );
+            System.out.println("Best ("+ A + "-" + beta + ") Result,  " + best.isopointalSet + ": " + best.energy);
         }
-
-
-        System.out.println("Run took " + ((startTime - System.currentTimeMillis()) / 1000.0 / 60.0) + " minutes" );
-        System.out.println("Best ("+ A + "-" + beta + ") Result,  " + best.isopointalSet + ": " + best.energy);
 
     }
 
