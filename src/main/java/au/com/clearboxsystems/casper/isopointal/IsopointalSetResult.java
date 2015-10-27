@@ -18,6 +18,7 @@ public class IsopointalSetResult implements Comparable<IsopointalSetResult> {
 	public int numTrials;
 	public double simTime;
 	public int attempts;
+    public int sameCount;
 	public boolean timeoutBeforeMinFound;
 
 	public String isopointalSet;

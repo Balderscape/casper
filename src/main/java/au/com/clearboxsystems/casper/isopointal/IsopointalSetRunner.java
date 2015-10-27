@@ -119,11 +119,12 @@ public class IsopointalSetRunner {
                                 sameCount++;
                         }
                         tries++;
-                    } while (sameCount < MIN_SAME && tries < MAX_DOUBLINGS);
-                    System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" + set.name + ":  " + minEnergy + ", numTrials = " + numTrials + " (degree " + set.getDegreesOfFreedom() + ")");
+                    } while (sameCount < MIN_SAME && tries <= MAX_DOUBLINGS);
+                    System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" + set.name + ":  " + minEnergy + ", numTrials = " + numTrials + " (degree " + set.getDegreesOfFreedom() + ")" + (sameCount < MIN_SAME ? " (Gave Up)" : ""));
 
                     minResult.attempts = tries;
                     minResult.timeoutBeforeMinFound = sameCount < MIN_SAME;
+                    minResult.sameCount = sameCount;
 
 //                    EnergyResult result = new EnergyResult(set.name, minEnergy, sameCount >= MIN_SAME, minResult.density);
 //                    synchronized (energyResults) {
