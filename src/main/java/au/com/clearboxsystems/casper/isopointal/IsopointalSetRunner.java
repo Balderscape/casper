@@ -36,7 +36,7 @@ public class IsopointalSetRunner {
 
         for (int A = 15; A >= 0; A--) {
             for (int beta = 12; beta >= 0; beta--) {
-                runner.runSet(A / 10.0, beta / 10.0, PermType.Combination, 1, 1);
+                runner.runSet(A / 10.0, beta, PermType.Combination, 1, 1);
             }
         }
 
@@ -79,9 +79,10 @@ public class IsopointalSetRunner {
         List<EnergyResult> energyResults = new ArrayList<>();
 
         int numSets = isopointalSets.size();
-        System.out.println("Computing energies for " + numSets + " isopointal sets on " + (Runtime.getRuntime().availableProcessors() - 1) + " CPUs");
+        System.out.println("Computing ( "+ A + "-" + beta+ ") energies for " + numSets + " isopointal sets on " + (Runtime.getRuntime().availableProcessors() - 1) + " CPUs");
         AtomicInteger done = new AtomicInteger();
 
+        long startTime = System.currentTimeMillis();
         for (IsopointalSet set : isopointalSets) {
 
             Runnable worker = new Runnable() {
@@ -174,7 +175,9 @@ public class IsopointalSetRunner {
             ex.printStackTrace();
         }
 
-        System.out.println("Best Result,  " + best.isopointalSet + ": " + best.energy);
+
+        System.out.println("Run took " + ((startTime - System.currentTimeMillis()) / 1000.0 / 60.0) + " minutes" );
+        System.out.println("Best ( \"+ A + \"-\" + beta+ \") Result,  " + best.isopointalSet + ": " + best.energy);
 
     }
 

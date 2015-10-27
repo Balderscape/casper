@@ -30,4 +30,12 @@ public class IsopointalSetResult {
 	public WyckoffSiteResult[] wyckoffSites;
 	public WyckoffPositionResult[] wyckoffPositions;
 
+
+
+	// 1. Create list of equal best structures.
+	// 2. Sort by :
+	// a. lowest number of wyckoff sites
+	// b. choose space group with highest general multiplicity (not multiplicity of chosen wyckoff site)
+	// c. choose structure with lowest multiplicity on chosen wyckoff site (sum if multiple sites)
+	// d. choose lowest site index (i.e. a beats b)
 }
