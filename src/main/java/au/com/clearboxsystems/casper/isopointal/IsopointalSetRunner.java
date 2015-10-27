@@ -34,8 +34,8 @@ public class IsopointalSetRunner {
     public static void main(String[] args) {
         IsopointalSetRunner runner = new IsopointalSetRunner();
 
-        for (int A = 15; A >= 0; A--) {
-            for (int beta = 12; beta >= 0; beta--) {
+        for (int A = 15; A >= 0; A-=2) {
+            for (int beta = 12; beta >= 0; beta-=2) {
                 runner.runSet(A / 10.0, beta, PermType.Combination, 1, 1);
             }
         }
@@ -76,10 +76,10 @@ public class IsopointalSetRunner {
                 break;
 
         }
-        List<EnergyResult> energyResults = new ArrayList<>();
+        List<IsopointalSetResult> minResults = new ArrayList<>();
 
         int numSets = isopointalSets.size();
-        System.out.println("Computing ( "+ A + "-" + beta+ ") energies for " + numSets + " isopointal sets on " + (Runtime.getRuntime().availableProcessors() - 1) + " CPUs");
+        System.out.println("Computing ("+ A + "-" + beta+ ") energies for " + numSets + " isopointal sets on " + (Runtime.getRuntime().availableProcessors() - 1) + " CPUs");
         AtomicInteger done = new AtomicInteger();
 
         long startTime = System.currentTimeMillis();
@@ -125,10 +125,10 @@ public class IsopointalSetRunner {
                     minResult.attempts = tries;
                     minResult.timeoutBeforeMinFound = sameCount < MIN_SAME;
 
-                    EnergyResult result = new EnergyResult(set.name, minEnergy, sameCount >= MIN_SAME, minResult.density);
-                    synchronized (energyResults) {
-                        energyResults.add(result);
-                    }
+//                    EnergyResult result = new EnergyResult(set.name, minEnergy, sameCount >= MIN_SAME, minResult.density);
+//                    synchronized (energyResults) {
+//                        energyResults.add(result);
+//                    }
 
                     ObjectMapper om = new ObjectMapper();
                     String runName = minResult.isopointalSet + "-" + minResult.EAM_A + "-" + minResult.EAM_beta + "-" + System.currentTimeMillis();
@@ -143,6 +143,7 @@ public class IsopointalSetRunner {
 
                     XTLFileGenerator.createXTLFile(resultPath, minResult, runName);
                     CIFFileGenerator.createCIFFile(resultPath, minResult, runName);
+                    minResults.add(minResult);
                 }
             };
             executor.submit(worker);
@@ -160,10 +161,14 @@ public class IsopointalSetRunner {
         resultSet.type = permType;
         resultSet.min = min;
         resultSet.max = max;
+
+        Collections.sort(minResults);
+
+        List<EnergyResult> energyResults = new ArrayList<>();
+        for (IsopointalSetResult isoResult : minResults)
+            energyResults.add(new EnergyResult(isoResult.isopointalSet, isoResult.energyPerAtom, !isoResult.timeoutBeforeMinFound, isoResult.density));
+
         resultSet.energies = energyResults;
-
-        Collections.sort(resultSet.energies);
-
         EnergyResult best = energyResults.get(0);
 
         ObjectMapper om = new ObjectMapper();
@@ -177,7 +182,7 @@ public class IsopointalSetRunner {
 
 
         System.out.println("Run took " + ((startTime - System.currentTimeMillis()) / 1000.0 / 60.0) + " minutes" );
-        System.out.println("Best ( \"+ A + \"-\" + beta+ \") Result,  " + best.isopointalSet + ": " + best.energy);
+        System.out.println("Best ("+ A + "-" + beta + ") Result,  " + best.isopointalSet + ": " + best.energy);
 
     }
 

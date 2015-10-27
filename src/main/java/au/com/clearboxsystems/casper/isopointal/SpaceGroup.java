@@ -87,4 +87,14 @@ public class SpaceGroup {
 				", gamma=" + gamma +
 				'}';
 	}
+
+	public int getHighestMultiplicity() {
+		int highestMultiplicity = 1;
+		for (WyckoffSite site : wyckoffSites) {
+			int mult = site.positions.size();
+			if (mult > highestMultiplicity)
+				highestMultiplicity = mult;
+		}
+		return highestMultiplicity;
+	}
 }

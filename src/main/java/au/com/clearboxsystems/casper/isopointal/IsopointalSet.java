@@ -229,6 +229,8 @@ public class IsopointalSet {
 		result.beta = spaceGroup.beta;
 		result.gamma = spaceGroup.gamma;
 
+		result.highestMultInSpaceGroup = spaceGroup.getHighestMultiplicity();
+
 		result.wyckoffPositions = new WyckoffPositionResult[numPositions];
 		result.wyckoffSites = new WyckoffSiteResult[wyckoffSites.size()];
 
