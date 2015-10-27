@@ -61,12 +61,8 @@ public class SimulatedAnneal {
 				isopointalSet.revertLastUpdate();
 //				rejectCount++;
 			}
-			double dt = System.currentTimeMillis() - startTime;
-			if (dt > 100)
-				System.out.println("This is taking to long");
-
-			startTime = System.currentTimeMillis();
 		}
+		double dt = System.currentTimeMillis() - startTime;
 
 		minResult.energyPerAtom = minEnergy/numAtoms;
 		minResult.EAM_A = A;
@@ -74,6 +70,7 @@ public class SimulatedAnneal {
 		minResult.startkT = startkT;
 		minResult.endkT = endkT;
 		minResult.numTrials = numTrials;
+		minResult.simTime = dt / 1000;
 		return minResult;
 	}
 }

@@ -21,8 +21,8 @@ public class SimulatedAnnealTest {
 //		double minEnergy = sim.findMinimumEnergy(2, 100000, 229, new String[]{"a"},  1, 2);
 //		double minEnergy = sim.findMinimumEnergy(5, 100000, 89, new String[]{"a", "b", "c", "d", "e", "f", "h"},  0.5, 4);
 
-		IsopointalSet set = new IsopointalSetFactory().getIsopointalSet(2, "g");
-		IsopointalSetResult result = sim.runSimulatedAnneal(100000, 2, 0.01, set, 0.5, 4);
+		IsopointalSet set = new IsopointalSetFactory().getIsopointalSet(182, "f");
+		IsopointalSetResult result = sim.runSimulatedAnneal(100000, 2, 0.01, set, 1.4, 8);
 		System.out.println(result.energyPerAtom);
 
 		ObjectMapper om = new ObjectMapper();
@@ -36,6 +36,7 @@ public class SimulatedAnnealTest {
 			ex.printStackTrace();
 		}
 
-		XTLFileGenerator.createXTLFile(result, runName);
+		XTLFileGenerator.createXTLFile("results", result, runName);
+		CIFFileGenerator.createCIFFile("results", result, runName);
 	}
 }

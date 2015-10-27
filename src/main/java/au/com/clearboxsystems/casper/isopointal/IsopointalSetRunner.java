@@ -32,8 +32,22 @@ public class IsopointalSetRunner {
     IsopointalSetFactory isopointalSetFactory = new IsopointalSetFactory();
 
     public static void main(String[] args) {
-        File iso = new File("results/iso");
-        File xtl = new File("results/xtl");
+        IsopointalSetRunner runner = new IsopointalSetRunner();
+
+        for (int A = 15; A >= 0; A--) {
+            for (int beta = 12; beta >= 0; beta--) {
+                runner.runSet(A / 10.0, beta / 10.0, PermType.Combination, 1, 1);
+            }
+        }
+
+    }
+
+    public void runSet(double A, double beta, PermType permType, int min, int max) {
+
+        String resultPath = "results/" + A + "-" + beta + "/";
+        File iso = new File(resultPath + "iso");
+        File xtl = new File(resultPath + "xtl");
+        File cif = new File(resultPath + "cif");
 
         if (!iso.exists())
             iso.mkdirs();
@@ -41,11 +55,14 @@ public class IsopointalSetRunner {
         if (!xtl.exists())
             xtl.mkdirs();
 
+        if (!cif.exists())
+            cif.mkdirs();
+
         IsopointalSetRunner runner = new IsopointalSetRunner();
-        runner.computeMinEnergies(1.4, 11, PermType.Combination, 1, 1);
+        runner.computeMinEnergies(A, beta, permType, min, max, resultPath);
     }
 
-    public void computeMinEnergies(double A, double beta, PermType permType, int min, int max) {
+    public void computeMinEnergies(double A, double beta, PermType permType, int min, int max, String resultPath) {
         ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
 
 
@@ -104,7 +121,10 @@ public class IsopointalSetRunner {
                     } while (sameCount < MIN_SAME && tries < MAX_DOUBLINGS);
                     System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" + set.name + ":  " + minEnergy + ", numTrials = " + numTrials + " (degree " + set.getDegreesOfFreedom() + ")");
 
-                    EnergyResult result = new EnergyResult(set.name, minEnergy, tries < MAX_DOUBLINGS);
+                    minResult.attempts = tries;
+                    minResult.timeoutBeforeMinFound = sameCount < MIN_SAME;
+
+                    EnergyResult result = new EnergyResult(set.name, minEnergy, sameCount >= MIN_SAME, minResult.density);
                     synchronized (energyResults) {
                         energyResults.add(result);
                     }
@@ -112,7 +132,7 @@ public class IsopointalSetRunner {
                     ObjectMapper om = new ObjectMapper();
                     String runName = minResult.isopointalSet + "-" + minResult.EAM_A + "-" + minResult.EAM_beta + "-" + System.currentTimeMillis();
 
-                    File file = new File("results/iso/" + runName + ".json");
+                    File file = new File(resultPath + "/iso/" + runName + ".iso");
                     try {
                         om.writerWithDefaultPrettyPrinter().writeValue(file, minResult);
                     } catch (IOException ex) {
@@ -120,7 +140,8 @@ public class IsopointalSetRunner {
                         ex.printStackTrace();
                     }
 
-                    XTLFileGenerator.createXTLFile(minResult, runName);
+                    XTLFileGenerator.createXTLFile(resultPath, minResult, runName);
+                    CIFFileGenerator.createCIFFile(resultPath, minResult, runName);
                 }
             };
             executor.submit(worker);
@@ -145,7 +166,7 @@ public class IsopointalSetRunner {
         EnergyResult best = energyResults.get(0);
 
         ObjectMapper om = new ObjectMapper();
-        File file = new File("results/" + A + "-" + beta + "-" + permType.name() + " - " + min + "-" + max + "-" + System.currentTimeMillis());
+        File file = new File(resultPath + "/" + A + "-" + beta + "-" + permType.name() + " - " + min + "-" + max + "-" + System.currentTimeMillis());
         try {
             om.writerWithDefaultPrettyPrinter().writeValue(file, resultSet);
         } catch (IOException ex) {

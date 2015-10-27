@@ -7,9 +7,9 @@ import java.io.PrintWriter;
  */
 public class XTLFileGenerator {
 
-	public static void createXTLFile(IsopointalSetResult result, String name) {
+	public static void createXTLFile(String resultPath, IsopointalSetResult result, String name) {
 		try {
-			PrintWriter pw = new PrintWriter("results/xtl/" + name + ".xtl");
+			PrintWriter pw = new PrintWriter(resultPath + "/xtl/" + name + ".xtl");
 
 			pw.println("TITLE " + name);
 			pw.println("CELL");
@@ -25,11 +25,11 @@ public class XTLFileGenerator {
 			pw.println("SYMMETRY LABEL  P1");
 			pw.println("ATOMS");
 			pw.println("NAME         X           Y           Z");
-			for (WyckoffSiteResult pos : result.wyckoffSites)
+			for (WyckoffPositionResult pos : result.wyckoffPositions)
 				pw.printf("H           %.6f   %.6f   %.6f\n",
-						pos.relX,
-						pos.relY,
-						pos.relZ);
+						pos.fracX,
+						pos.fracY,
+						pos.fracZ);
 			pw.println("EOF");
 
 			pw.close();

@@ -6,7 +6,6 @@ package au.com.clearboxsystems.casper.isopointal;
 
 import au.com.clearboxsystems.casper.math.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -37,6 +36,8 @@ public class IsopointalSet {
 	private double sinGamma;
 	private double invSinGamma;
 	private double unitVolume;
+	public double volume;
+	public double density;
 
 	public Vector3 vecA = new Vector3();
 	public Vector3 vecB = new Vector3();
@@ -129,6 +130,8 @@ public class IsopointalSet {
 		sinGamma = Math.sin(spaceGroup.gamma);
 		invSinGamma = 1.0 / sinGamma;
 		unitVolume = Math.sqrt(1 - cosAlpha * cosAlpha - cosBeta * cosBeta - cosGamma * cosGamma + 2 * cosAlpha * cosBeta * cosGamma);
+		volume = a * b * c * unitVolume;
+		density = numPositions / volume;
 
 		transformToCartesian(new Vector3(1, 0, 0), vecA);
 		transformToCartesian(new Vector3(0, 1, 0), vecB);
@@ -215,6 +218,10 @@ public class IsopointalSet {
 	public IsopointalSetResult saveResult() {
 		IsopointalSetResult result = new IsopointalSetResult();
 		result.isopointalSet = "" + spaceGroup.number;
+		result.spaceGroup = spaceGroup.number;
+		result.volume = volume;
+		result.density = density;
+
 		result.a = a;
 		result.b = b;
 		result.c = c;
@@ -222,8 +229,10 @@ public class IsopointalSet {
 		result.beta = spaceGroup.beta;
 		result.gamma = spaceGroup.gamma;
 
-		result.wyckoffSites = new WyckoffSiteResult[numPositions];
+		result.wyckoffPositions = new WyckoffPositionResult[numPositions];
+		result.wyckoffSites = new WyckoffSiteResult[wyckoffSites.size()];
 
+		int siteIdx = 0;
 		int positionIdx = 0;
 		int basisIdx = 0;
 		for (WyckoffSite site : wyckoffSites) {
@@ -236,15 +245,29 @@ public class IsopointalSet {
 			if (site.hasZ)
 				posVariable.z = basis[basisIdx++].curVal;
 
+			boolean first = true;
 
 			for (WyckoffPosition position : site.positions) {
-				WyckoffSiteResult siteResult = new WyckoffSiteResult();
+				WyckoffPositionResult positionResult = new WyckoffPositionResult();
 				Vector3 pos = position.getPosition(posVariable);
-				siteResult.code = site.code;
-				siteResult.relX = pos.x;
-				siteResult.relY = pos.y;
-				siteResult.relZ = pos.z;
-				result.wyckoffSites[positionIdx++] = siteResult;
+				positionResult.code = site.code;
+				positionResult.fracX = pos.x;
+				positionResult.fracY = pos.y;
+				positionResult.fracZ = pos.z;
+				result.wyckoffPositions[positionIdx++] = positionResult;
+
+				if (first) {
+					WyckoffSiteResult siteResult = new WyckoffSiteResult();
+					siteResult.code = site.code;
+					siteResult.multiplicity = site.positions.size();
+
+					siteResult.fracX = pos.x;
+					siteResult.fracY = pos.y;
+					siteResult.fracZ = pos.z;
+
+					result.wyckoffSites[siteIdx++] = siteResult;
+					first = false;
+				}
 			}
 		}
 
