@@ -74,4 +74,3 @@ public class SimulatedAnneal {
 		return minResult;
 	}
 }
- // 1493

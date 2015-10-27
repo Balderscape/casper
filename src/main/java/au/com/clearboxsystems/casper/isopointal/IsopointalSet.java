@@ -24,7 +24,7 @@ public class IsopointalSet {
 	private List<WyckoffSite> wyckoffSites;
 //	private List<Vector3> wyckoffPositions;
 
-	private Variable[] basis;
+	public Variable[] basis;
 	private int wyckoffStartIdx;
 
 	private int numPositions;
@@ -236,7 +236,7 @@ public class IsopointalSet {
 
 		int siteIdx = 0;
 		int positionIdx = 0;
-		int basisIdx = 0;
+		int basisIdx = wyckoffStartIdx;
 		for (WyckoffSite site : wyckoffSites) {
 			result.isopointalSet += site.code;
 			Vector3 posVariable = new Vector3();
