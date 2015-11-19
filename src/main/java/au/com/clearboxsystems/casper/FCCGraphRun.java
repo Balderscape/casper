@@ -26,7 +26,7 @@ public class FCCGraphRun {
 
 		for (double A = 0; A <= 1.5; A+=0.1) {
 			System.out.println("A: " + A);
-			IsopointalSetResult energy = simAnneal.findMinimumEnergy(8, 100000, 225, new String[]{"a"}, A, 4);
+			IsopointalSetResult energy = simAnneal.findMinimumEnergy(8, 100000, 225, new String[]{"a"}, A, 4, 12);
 			energySeries.add(A, energy.energyPerAtom);
 		}
 

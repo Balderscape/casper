@@ -34,13 +34,13 @@ public class BCCGraphRun {
 
 		x.parallelStream().forEach((A) -> {
 			System.out.println("A: " + A);
-			IsopointalSetResult energy = simAnneal.findMinimumEnergy(4, 500000, 225, new String[]{"a"}, A, 2);
+			IsopointalSetResult energy = simAnneal.findMinimumEnergy(4, 500000, 225, new String[]{"a"}, A, 2, 12);
 			FCCenergySeries.add((double)A, energy.energyPerAtom);
 		});
 
 		x.parallelStream().forEach((A) -> {
 			System.out.println("A: " + A);
-			IsopointalSetResult energy = simAnneal.findMinimumEnergy(4, 500000, 229, new String[]{"a"}, A, 2);
+			IsopointalSetResult energy = simAnneal.findMinimumEnergy(4, 500000, 229, new String[]{"a"}, A, 2, 12);
 			BCCenergySeries.add((double)A, energy.energyPerAtom);
 		});
 

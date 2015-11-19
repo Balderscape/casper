@@ -15,37 +15,29 @@ import java.util.List;
  * User: pauls
  * Timestamp: 10/08/2015 10:41 AM
  */
-public class LJEmbeddedAtomPotential {
-	public final double Z0;     // Nearest neighbour interactions (ref state)
+public class LJEAM_Peter_Potential {
+	public final double rhobar0;     // Nearest neighbour interactions (ref state)
 	public final double A;    // Amount of multi-body bonding
-	public final double beta;      // Decay of electron density
+	public final double beta=2.0;      // Decay of electron density
 
-//	public final double Rcutoff = 1.4;      // Atoms further away than this value are ignored
-	public final double Rcutoff = 1.65;      // Compromise that we reached for the run...
-//	public final double Rcutoff = 2.5;      // Atoms further away than this value are ignored
+	public final double Rcutoff = 6.0;      // Compromise that we reached for the run...
 
 	private final double RcutoffSq;
-	private final double invZ0;
-	private final double AZ0On2;
-	private final double minus2OnZ0;
+	private final double AOnrhobar0;
 
 	private List<Double> interAtomicDistances[];
 	private int[] multiplicity;
 
-	public LJEmbeddedAtomPotential() {
-		this(0.5, 4);
+	public LJEAM_Peter_Potential() {
+		this(1, 10);
 	}
 
-	public LJEmbeddedAtomPotential(double a, double beta) {
-		Z0 = 12;
+	public LJEAM_Peter_Potential(double a, double rhobar0) {
+		this.rhobar0 = rhobar0;
 		A = a;
-		this.beta = beta;
 
 		RcutoffSq = Rcutoff * Rcutoff;
-
-		invZ0 = 1.0 / Z0;
-		AZ0On2 = A * Z0 / 2.0;
-		minus2OnZ0 = -2.0 / Z0;
+		AOnrhobar0 = A / rhobar0;
 	}
 
 	public double computeEnergy(IsopointalSet isopointalSet) {
@@ -54,11 +46,11 @@ public class LJEmbeddedAtomPotential {
 		generateInterAtomDistances(isopointalSet);
 
 		for (int i = 0; i < isopointalSet.getNumPositions(); i++) {
-			double energy = computeF(computeRhoBar(interAtomicDistances[i]));
+			double energy = computeF(computeRhoSum(interAtomicDistances[i]));
 
 			double phiSum = 0;
 			for (double dist : interAtomicDistances[i]) {
-				phiSum += computePhi(dist);
+				phiSum += computeLJ(dist);
 			}
 			energy += 0.5 * phiSum;
 
@@ -105,36 +97,31 @@ public class LJEmbeddedAtomPotential {
 	private double computeF(double rhoBar) {
 		if (rhoBar == 0) // Limit as rhoBar -> 0 = 0
 			return 0;
-		return AZ0On2 * rhoBar * (Math.log(rhoBar) - 1);
+		return AOnrhobar0 * rhoBar * (Math.log(rhoBar/rhobar0) - 1);
 	}
 
-	private double computePhi(double r) {
-		return computeLJ(r) + minus2OnZ0 * computeF(computeRho(r));
-	}
-
-	private double computeRhoBar(List<Double> interAtomicDistances) {
+	private double computeRhoSum(List<Double> interAtomicDistances) {
 		double rhoSum = 0;
 		for (double dist : interAtomicDistances) {
 			rhoSum += computeRho(dist);
 		}
-		return rhoSum  * invZ0;
+		return rhoSum;
 	}
 
 
 	private double computeRho(double r) {
-		return Math.exp(-beta*(r - 1.0));
+		return Math.exp(-beta*(r/Math.pow(2.0,1.0/6.0) - 1.0));
 	}
 
 	private double computeLJ(double r) {
+		// note Peter's version is different to Baskes' version.
 		double r6;
 		r6=r*r;
 		r6=r6*r6*r6;
-		return 1.0/(r6*r6)-2.0/r6;
+		return 4.0/(r6*r6)-4.0/r6;
 	}
 
-		public static void main(String[] args) {
-		LJEmbeddedAtomPotential pot = new LJEmbeddedAtomPotential();
-		System.out.println("LJ(2): " + pot.computeLJ(4));
-		System.out.println("LJ(1): " + pot.computeLJ(2));
+	public static void main(String[] args) {
+		LJEAM_Peter_Potential pot = new LJEAM_Peter_Potential();
 	}
 }

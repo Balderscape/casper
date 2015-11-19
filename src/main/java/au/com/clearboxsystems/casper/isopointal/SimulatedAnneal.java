@@ -5,7 +5,7 @@ package au.com.clearboxsystems.casper.isopointal;
  */
 public class SimulatedAnneal {
 
-	public IsopointalSetResult findMinimumEnergy(int numRuns, int trialsPerRun, int spaceGroup, String[] wyckoffSites, double A, double beta) {
+	public IsopointalSetResult findMinimumEnergy(int numRuns, int trialsPerRun, int spaceGroup, String[] wyckoffSites, double potential_param1, double potential_param2, double potential_param3) {
 		double startkT = 2;
 		double endT = 0.01;
 
@@ -14,7 +14,7 @@ public class SimulatedAnneal {
 		IsopointalSetResult minResult = null;
 		for (int i = 0; i < numRuns; i++) {
 			IsopointalSet isopointalSet = isopointalSetFactory.getIsopointalSet(spaceGroup, wyckoffSites);
-			IsopointalSetResult result = runSimulatedAnneal(trialsPerRun, 2, 0.01, isopointalSet, A, beta);
+			IsopointalSetResult result = runSimulatedAnneal(trialsPerRun, 2, 0.01, isopointalSet, potential_param1, potential_param2, potential_param3);
 			if (result.energyPerAtom < minEnergy) {
 				minEnergy = result.energyPerAtom;
 				minResult = result;
@@ -24,8 +24,10 @@ public class SimulatedAnneal {
 		return minResult;
 	}
 
-	public IsopointalSetResult runSimulatedAnneal(int numTrials, double startkT, double endkT, IsopointalSet isopointalSet, double A, double beta) {
-		LJEmbeddedAtomPotential pot = new LJEmbeddedAtomPotential(A, beta);
+	public IsopointalSetResult runSimulatedAnneal(int numTrials, double startkT, double endkT, IsopointalSet isopointalSet, double potential_param1, double potential_param2, double potential_param3) {
+		//LJEmbeddedAtomPotential pot = new LJEmbeddedAtomPotential(potential_param1, potential_param2); /* p1=A, p2=beta */
+		//LJGPotential pot = new LJGPotential(potential_param1, potential_param2, potential_param3); /* p1=r0, p2=epsilon, sigmasq=0.02*/
+		LJEAM_Peter_Potential pot = new LJEAM_Peter_Potential(potential_param1, potential_param2); /* p1=r0, p2=epsilon, sigmasq=0.02*/
 
 		double numAtoms = isopointalSet.getNumPositions();
 
@@ -65,8 +67,9 @@ public class SimulatedAnneal {
 		double dt = System.currentTimeMillis() - startTime;
 
 		minResult.energyPerAtom = minEnergy/numAtoms;
-		minResult.EAM_A = A;
-		minResult.EAM_beta = beta;
+		minResult.pot_param1 = potential_param1;
+		minResult.pot_param2 = potential_param2;
+		minResult.pot_param3 = 0.02;
 		minResult.startkT = startkT;
 		minResult.endkT = endkT;
 		minResult.numTrials = numTrials;

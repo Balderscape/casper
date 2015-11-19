@@ -22,11 +22,11 @@ public class SimulatedAnnealTest {
 //		double minEnergy = sim.findMinimumEnergy(5, 100000, 89, new String[]{"a", "b", "c", "d", "e", "f", "h"},  0.5, 4);
 
 		IsopointalSet set = new IsopointalSetFactory().getIsopointalSet(193, "e");
-		IsopointalSetResult result = sim.runSimulatedAnneal(100000, 2, 0.01, set, 1.5, 1.2);
+		IsopointalSetResult result = sim.runSimulatedAnneal(100000, 2, 0.01, set, 1.5, 1.2, 12);
 		System.out.println(result.energyPerAtom);
 
 		ObjectMapper om = new ObjectMapper();
-		String runName = result.isopointalSet + "-" + result.EAM_A + "-" + result.EAM_beta + "-" + System.currentTimeMillis();
+		String runName = result.isopointalSet + "-" + result.pot_param1 + "-" + result.pot_param2+ "-" + result.pot_param3 + "-" + System.currentTimeMillis();
 
 		String resultPath = "results/";
 		File iso = new File(resultPath + "iso");
