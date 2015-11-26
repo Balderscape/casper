@@ -5,6 +5,7 @@ package au.com.clearboxsystems.casper.isopointal;
  */
 public enum PermType {
 	Combination,
-	Degree
+	Degree,
+	Special
 
 }

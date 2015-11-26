@@ -18,7 +18,7 @@ import java.util.List;
 public class LJEAM_Peter_Potential {
 	public final double rhobar0;     // Nearest neighbour interactions (ref state)
 	public final double A;    // Amount of multi-body bonding
-	public final double beta=2.0;      // Decay of electron density
+	public final double beta;      // Decay of electron density
 
 	public final double Rcutoff = 6.0;      // Compromise that we reached for the run...
 
@@ -29,11 +29,12 @@ public class LJEAM_Peter_Potential {
 	private int[] multiplicity;
 
 	public LJEAM_Peter_Potential() {
-		this(1, 10);
+		this(0, 12, 3);
 	}
 
-	public LJEAM_Peter_Potential(double a, double rhobar0) {
+	public LJEAM_Peter_Potential(double a, double rhobar0, double beta) {
 		this.rhobar0 = rhobar0;
+		this.beta = beta;
 		A = a;
 
 		RcutoffSq = Rcutoff * Rcutoff;

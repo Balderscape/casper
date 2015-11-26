@@ -33,11 +33,11 @@ public class LJEmbeddedAtomPotential {
 	private int[] multiplicity;
 
 	public LJEmbeddedAtomPotential() {
-		this(0.5, 4);
+		this(0.5, 4, 12);
 	}
 
-	public LJEmbeddedAtomPotential(double a, double beta) {
-		Z0 = 12;
+	public LJEmbeddedAtomPotential(double a, double beta, double Z0) {
+		this.Z0 = Z0;
 		A = a;
 		this.beta = beta;
 

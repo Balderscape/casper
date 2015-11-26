@@ -16,15 +16,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by pauls on 4/10/15.
  */
 public class IsopointalSetRunner {
-    public static final int MAX_DOUBLINGS = 4;
-    public static final int MIN_SAME = 4;
-    public static final int NUM_RUNS = 5;
+    public static final int MAX_DOUBLINGS = 2;
+    public static final int MIN_SAME = 2;
+    public static final int NUM_RUNS = 3;
     public static final double SAME_EPS = 0.001;
     // Trouble Sets 208abcij, 81,920,000 trials
     /*
-    FCC - 225a
-    BCC - 229a
-    SC - 221a
+    FCC - 225a / 225b / 228b
+    BCC - 229a / 230a
+    SC - 221a / 229c /226a
     DC - 227a
     Graphite - 194bc (or 194a)
      */
@@ -34,17 +34,30 @@ public class IsopointalSetRunner {
     public static void main(String[] args) {
         IsopointalSetRunner runner = new IsopointalSetRunner();
 
-        /*for (int A = 15; A >= 0; A-=2) {
-            for (int beta = 12; beta >= 0; beta-=2) {
-                runner.runSet(A /10.0, beta, 12, PermType.Combination, 1, 1);
-            }
-        }*/
-
-        for (int A = 30; A >= 0; A-=2) {
-            for (int rhobar0 = 12; rhobar0 >= 0; rhobar0 -=1) {
-                runner.runSet(A, rhobar0, 0.0, PermType.Combination, 1, 1);
+        for (int A = 15; A >= 1; A-=1) {
+            for (int beta = 12; beta >= 1; beta-=1) {
+                runner.runSet(A/10.0, beta, 12, PermType.Combination, 1, 1);
             }
         }
+
+
+/*
+        for (int A = 30; A >=2; A-=4) {
+            for (int rhobar0 = 12; rhobar0 >= 1; rhobar0 -= 1) {
+                runner.runSet(A, rhobar0, 2.0, PermType.Special, 1, 1);
+            }
+        }
+*/
+
+//        runner.runSet(1.0, 7.1, 3.0, PermType.Special, 1, 1);
+
+
+  /*      for (int tenbeta = 150; tenbeta >= 20; tenbeta -=10) {
+            for (int rhobar0 = 12; rhobar0 >= 1; rhobar0 -= 0.5) {
+                runner.runSet(10.0, rhobar0, tenbeta / 10.0, PermType.Special, 1, 1);
+            }
+        }
+*/
 
         /*for (int tenepsilon = 18; tenepsilon >= 0; tenepsilon-=2) {
             for (int tenr0 = 10; tenr0 <=21; tenr0++) {
@@ -86,6 +99,9 @@ public class IsopointalSetRunner {
             case Combination:
                 isopointalSets = generateAllIsopointalSetsWithPermutations(min, max);
                 break;
+            case Special:
+                isopointalSets = generateSpecialIsopointalSets();
+                break;
 
         }
         List<IsopointalSetResult> minResults = new ArrayList<>();
@@ -97,13 +113,17 @@ public class IsopointalSetRunner {
         long startTime = System.currentTimeMillis();
         for (IsopointalSet set : isopointalSets) {
 
+            //System.out.println("one");
+
             Runnable worker = new Runnable() {
                 @Override
                 public void run() {
+                    //System.out.println("two");
+
                     SimulatedAnneal sa = new SimulatedAnneal();
 
-                    int numTrials = 10000 * set.getDegreesOfFreedom();
-                    int sameCount = 0;
+                    int numTrials = 5000 * set.getDegreesOfFreedom();
+                    int sameCount;
                     double minEnergy = Double.MAX_VALUE;
                     IsopointalSetResult minResult = null;
                     boolean first = true;
@@ -119,6 +139,7 @@ public class IsopointalSetRunner {
                             results[i] = sa.runSimulatedAnneal(numTrials, 2, 0.01, set, potential_param1, potential_param2, potential_param3);
 
                         minEnergy = results[0].energyPerAtom;
+                        minResult = results[0];
                         for (int i = 1; i < NUM_RUNS; i++)
                             if (results[i].energyPerAtom < minEnergy) {
                                 minEnergy = results[i].energyPerAtom;
@@ -132,16 +153,18 @@ public class IsopointalSetRunner {
                         }
                         tries++;
                     } while (sameCount < MIN_SAME && tries <= MAX_DOUBLINGS);
-                    System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" + set.name + ":  " + minEnergy + ", numTrials = " + numTrials + " (degree " + set.getDegreesOfFreedom() + ")" + (sameCount < MIN_SAME ? " (Gave Up)" : ""));
+
+                    System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" + minResult.isopointalSet +" =? "+ set.name + ":  " + minEnergy + ", density = "+minResult.density+", numTrials = " + numTrials + " (degree " + set.getDegreesOfFreedom() + ")" + (sameCount < MIN_SAME ? " (Gave Up)" : ""));
+                    //System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" );
 
                     minResult.attempts = tries;
                     minResult.timeoutBeforeMinFound = sameCount < MIN_SAME;
                     minResult.sameCount = sameCount;
 
-//                    EnergyResult result = new EnergyResult(set.name, minEnergy, sameCount >= MIN_SAME, minResult.density);
-//                    synchronized (energyResults) {
+//                  EnergyResult result = new EnergyResult(set.name, minEnergy, sameCount >= MIN_SAME, minResult.density);
+//                  synchronized (energyResults) {
 //                        energyResults.add(result);
-//                    }
+//                  }
 
                     ObjectMapper om = new ObjectMapper();
                     String runName = minResult.isopointalSet + "-" + minResult.pot_param1 + "-" + minResult.pot_param2 + "-" + minResult.pot_param3+ "-" + System.currentTimeMillis();
@@ -156,7 +179,8 @@ public class IsopointalSetRunner {
 
                     XTLFileGenerator.createXTLFile(resultPath, minResult, runName);
                     CIFFileGenerator.createCIFFile(resultPath, minResult, runName);
-                    synchronized (minResults) {
+
+                    synchronized(minResults) {
                         minResults.add(minResult);
                     }
                 }
@@ -167,8 +191,8 @@ public class IsopointalSetRunner {
         executor.shutdown();
         while(!executor.isTerminated()) {
             try {
-                executor.awaitTermination(1, TimeUnit.SECONDS);
-            } catch (InterruptedException ignore) {}
+               executor.awaitTermination(2, TimeUnit.SECONDS);
+          } catch (InterruptedException ignore) {}
         }
         EnergyRunResults resultSet = new EnergyRunResults();
         resultSet.potential_param1 = potential_param1;
@@ -197,7 +221,7 @@ public class IsopointalSetRunner {
                 ex.printStackTrace();
             }
 
-            System.out.println("Run took " + ((startTime - System.currentTimeMillis()) / 1000.0 / 60.0) + " minutes" );
+            System.out.println("Run took " + ((System.currentTimeMillis()-startTime) / 1000.0 / 60.0) + " minutes" );
             System.out.println("Best ("+ potential_param1 + "-" + potential_param2 + "-" + potential_param3 + ") Result,  " + best.isopointalSet + ": " + best.energy);
         }
 
@@ -241,6 +265,38 @@ public class IsopointalSetRunner {
 
             int k = sg.getNumConstrainedWyckoffSites() + maxDegreesOfFreedom - sg.getDegreesOfFreedom();
             result.addAll(generateAllIsopointalSetsOfDegree(sg, k, minDegreesOfFreedom, maxDegreesOfFreedom));
+        }
+
+        return result;
+    }
+
+    public List<IsopointalSet> generateSpecialIsopointalSets() {
+        List<IsopointalSet> result = new ArrayList<>();
+        for (int i = 1; i <= IsopointalSet.NUM_SPACE_GROUPS; i++) {
+            SpaceGroup sg = isopointalSetFactory.getSpaceGroup(i);
+
+            int numWyckoffSites = sg.getNumWyckoffSites();
+            String sites = "";
+            for (int j = 0; j < numWyckoffSites; j++) {
+                WyckoffSite site = sg.getWyckoffSite(numWyckoffSites - j - 1);
+                if (site.getDegreesOfFreedom() == 0)
+                    sites += site.code.toLowerCase();
+                else
+                    sites += site.code.toUpperCase();
+            }
+
+            List<String> wyckoffCombinations = new ArrayList<>();
+            wyckoffCombinations.addAll(generateWyckoffCombinations("", sites, 1));
+
+            for (String wyckoffCombination : wyckoffCombinations) {
+                IsopointalSet set = isopointalSetFactory.getIsopointalSet(sg.number, wyckoffCombination);
+                if ((set.name.equals("225a"))||(set.name.equals("226a"))||(set.name.equals("227a"))||(set.name.equals("229a"))) {
+//                if ((set.name.equals("225a"))||(set.name.equals("229a"))) {
+//                  System.out.println(set.name + ": " + set.getDegreesOfFreedom());
+                    result.add(set);
+                }
+            }
+
         }
 
         return result;

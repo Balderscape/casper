@@ -4,7 +4,7 @@ package au.com.clearboxsystems.casper.isopointal;
  * Created by pauls on 21/10/15.
  */
 public class IsopointalSetResult implements Comparable<IsopointalSetResult> {
-	public static SpaceGroupFactory sgf = new SpaceGroupFactory();
+	//public static SpaceGroupFactory sgf = new SpaceGroupFactory();
 	public static final double ENERGY_EPS = 0.001;
 
 	public double pot_param1;
@@ -45,10 +45,16 @@ public class IsopointalSetResult implements Comparable<IsopointalSetResult> {
 
 	@Override
 	public int compareTo(IsopointalSetResult o) {
-		double diffEnergy = energyPerAtom - o.energyPerAtom;
-		if (diffEnergy < - ENERGY_EPS)
+//		double diffEnergy = energyPerAtom - o.energyPerAtom;
+//		if (diffEnergy < - ENERGY_EPS)
+//			return -1;
+//		else if (diffEnergy > ENERGY_EPS)
+//			return 1;
+
+		int diffEnergy = (int)(energyPerAtom/ENERGY_EPS) - (int)(o.energyPerAtom/ENERGY_EPS);
+		if (diffEnergy < 0)
 			return -1;
-		else if (diffEnergy > ENERGY_EPS)
+		else if (diffEnergy > 0)
 			return 1;
 
 		int diffSites = wyckoffSites.length - o.wyckoffSites.length;
