@@ -32,6 +32,9 @@ public class IsopointalSetResult implements Comparable<IsopointalSetResult> {
 	public double beta;
 	public double gamma;
 
+	public int numPositions;//TSH
+	public int numSites; //TSH
+
 	public WyckoffSiteResult[] wyckoffSites;
 	public WyckoffPositionResult[] wyckoffPositions;
 

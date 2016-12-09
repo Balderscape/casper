@@ -2,6 +2,11 @@ package au.com.clearboxsystems.casper.isopointal;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+//TSH next few
+import java.nio.file.*;
+import java.nio.charset.*;
+import java.util.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,11 +27,13 @@ public class IsopointalSetRunner {
     public static final double SAME_EPS = 0.001;
     // Trouble Sets 208abcij, 81,920,000 trials
     /*
-    FCC - 225a / 225b / 228b
-    BCC - 229a / 230a
+    FCC - 225a / 225b / 228b for two wyckoff: 227cd
+    BCC - 229a / 230a /228a
     SC - 221a / 229c /226a
     DC - 227a
     Graphite - 194bc (or 194a)
+    simple triangular prism 191a?
+
      */
 
     IsopointalSetFactory isopointalSetFactory = new IsopointalSetFactory();
@@ -34,12 +41,12 @@ public class IsopointalSetRunner {
     public static void main(String[] args) {
         IsopointalSetRunner runner = new IsopointalSetRunner();
 
-        for (int A = 15; A >= 1; A-=1) {
+/*        for (int A = 15; A >= 1; A-=1) {
             for (int beta = 12; beta >= 1; beta-=1) {
                 runner.runSet(A/10.0, beta, 12, PermType.Combination, 1, 1);
             }
         }
-
+*/
 
 /*
         for (int A = 30; A >=2; A-=4) {
@@ -48,12 +55,23 @@ public class IsopointalSetRunner {
             }
         }
 */
+ /*   for (int tenK = 100; tenK >=  60; tenK -= 5) {
+        for (int hundredphi = 80; hundredphi >= 40; hundredphi -= 3) {
+            runner.runSet(tenK / 10.0, hundredphi / 100.0, 0.00, PermType.Combination, 2, 2);
+        }
+    }  */
 
-//        runner.runSet(1.0, 7.1, 3.0, PermType.Special, 1, 1);
+ /*      for (int tenr0 = 12; tenr0 >= 12; tenr0 -=0) {
+            for (int hundredepsilon = 100; hundredepsilon >=0; hundredepsilon -=10){
+                runner.runSet(tenr0 / 10.0, hundredepsilon / 100.0, 0.00, PermType.Combination, 1, 1);
 
+            }
+        } */
 
-  /*      for (int tenbeta = 150; tenbeta >= 20; tenbeta -=10) {
-            for (int rhobar0 = 12; rhobar0 >= 1; rhobar0 -= 0.5) {
+           runner.runSet(8.5, 0.68, 0.00, PermType.Combination, 2, 2);
+
+  /*      for (int tenbeta = 150; tenbeta >=  20; tenbeta -=10) {
+            for (int rhobar0 = 12; rhobar0 >= 1; rhobar0 -= 1) {
                 runner.runSet(10.0, rhobar0, tenbeta / 10.0, PermType.Special, 1, 1);
             }
         }
@@ -73,6 +91,7 @@ public class IsopointalSetRunner {
         File iso = new File(resultPath + "iso");
         File xtl = new File(resultPath + "xtl");
         File cif = new File(resultPath + "cif");
+        File GofR = new File(resultPath + "GofR");
 
         if (!iso.exists())
             iso.mkdirs();
@@ -82,6 +101,9 @@ public class IsopointalSetRunner {
 
         if (!cif.exists())
             cif.mkdirs();
+
+        if (!GofR.exists())
+            GofR.mkdirs();
 
         IsopointalSetRunner runner = new IsopointalSetRunner();
         runner.computeMinEnergies(potential_param1, potential_param2, potential_param3, permType, min, max, resultPath);
@@ -154,8 +176,19 @@ public class IsopointalSetRunner {
                         tries++;
                     } while (sameCount < MIN_SAME && tries <= MAX_DOUBLINGS);
 
-                    System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" + minResult.isopointalSet +" =? "+ set.name + ":  " + minEnergy + ", density = "+minResult.density+", numTrials = " + numTrials + " (degree " + set.getDegreesOfFreedom() + ")" + (sameCount < MIN_SAME ? " (Gave Up)" : ""));
-                    //System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" );
+//                  System.out.println ("\n-----------------------------");
+//                 System.out.println ("Isopointal Set Results");
+//                  System.out.println ("-----------------------------");
+//                  System.out.format("%20s%20s%15s%2energyResults.lastIndexOf(resultSet)4s%30s%10s", "Number of Sets", "Isopointal Set", "Energy", "Density", "Number of trials", "DOF");
+//                  System.out.println("");
+//                 System.out.format("%20s%20s%40d%40d%25s%25s","        "  +"(" + done.incrementAndGet() + "/" + numSets + ")" + "             " + minResult.isopointalSet +" =? "+ set.name + ":  " + "       "+ minEnergy + "     "+minResult.density +  "      " +numTrials +   "                  " + set.getDegreesOfFreedom()  + (sameCount < MIN_SAME ? " (Gave Up)" : ""));
+
+                  System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" + minResult.isopointalSet +" =? "+ set.name + ":  " + minEnergy + ", density = "+minResult.density+", numTrials = " + numTrials + " (degree " + set.getDegreesOfFreedom() + ")" + (sameCount < MIN_SAME ? " (Gave Up)" : ""));
+//                    System.out.println("(" + done.incrementAndGet() + "/" + numSets + ")" );
+//                    System.out.println("("  + minResult.isopointalSet +" =? "+ set.name + ":  " );
+//                    System.out.println( minEnergy);
+//                    System.out.println(",density =  "+minResult.density+"");
+//                    System.out.println( "numTrials = " + numTrials + " (degree " + set.getDegreesOfFreedom() + ")" + (sameCount < MIN_SAME ? " (Gave Up)" : ")"));
 
                     minResult.attempts = tries;
                     minResult.timeoutBeforeMinFound = sameCount < MIN_SAME;
@@ -179,6 +212,7 @@ public class IsopointalSetRunner {
 
                     XTLFileGenerator.createXTLFile(resultPath, minResult, runName);
                     CIFFileGenerator.createCIFFile(resultPath, minResult, runName);
+                    GofRFileGenerator.createGofRFile(resultPath, minResult, runName);
 
                     synchronized(minResults) {
                         minResults.add(minResult);
@@ -202,6 +236,9 @@ public class IsopointalSetRunner {
         resultSet.min = min;
         resultSet.max = max;
 
+        int found;
+
+
         synchronized (minResults) {
             Collections.sort(minResults);
 
@@ -216,6 +253,28 @@ public class IsopointalSetRunner {
             File file = new File(resultPath + "/" + potential_param1 + "-" + potential_param2 + "-" + potential_param3 + "-" + permType.name() + " - " + min + "-" + max + "-" + System.currentTimeMillis());
             try {
                 om.writerWithDefaultPrettyPrinter().writeValue(file, resultSet);
+            } catch (IOException ex) {
+                System.out.println(ex);
+                ex.printStackTrace();
+            }
+
+            //Alex and Toby's tabular attempt
+            try {
+                ArrayList<String> lines = new ArrayList<String>();
+                lines.add("#potential_param1="+String.valueOf(resultSet.potential_param1)+" potential_param2="+String.valueOf(resultSet.potential_param2)+" potential_param3="+String.valueOf(resultSet.potential_param3)+" type="+String.valueOf(resultSet.type)+" min="+String.valueOf(resultSet.min)+" max="+String.valueOf(resultSet.max));
+                lines.add("#index,energy,density,isopointal set, minFound");
+//                for (int i=0; i<energyResults.lastIndexOf(resultSet); i++) {
+                for (int i=0; i<energyResults.size(); i++) {
+                    if (resultSet.energies.get(i).minFound) {
+                        found = 1;
+                    } else {
+                        found = 0;
+                    }
+                    lines.add(String.valueOf(i)+" "+ String.valueOf(resultSet.energies.get(i).energy) +" "+String.valueOf(resultSet.energies.get(i).density)+" "+String.valueOf(found)+" \""+String.valueOf(resultSet.energies.get(i).isopointalSet)+"\"");
+                }
+
+                Path file1 = Paths.get(resultPath + "/Table-" + potential_param1 + "-" + potential_param2 + "-" + potential_param3 + "-" + permType.name() + " - " + min + "-" + max + "-" + System.currentTimeMillis()+".dat");
+                Files.write(file1, lines, Charset.forName("UTF-8"));
             } catch (IOException ex) {
                 System.out.println(ex);
                 ex.printStackTrace();
@@ -293,6 +352,8 @@ public class IsopointalSetRunner {
                 if ((set.name.equals("225a"))||(set.name.equals("226a"))||(set.name.equals("227a"))||(set.name.equals("229a"))) {
 //                if ((set.name.equals("225a"))||(set.name.equals("229a"))) {
 //                  System.out.println(set.name + ": " + set.getDegreesOfFreedom());
+//                  if ((set.name.equals("208a"))||(set.name.equals("208b"))||(set.name.equals("208c"))||(set.name.equals("209i"))||(set.name.equals("208j")))  {
+                    System.out.println(set.name + ": " + set.getDegreesOfFreedom());
                     result.add(set);
                 }
             }

@@ -7,7 +7,7 @@ public class SimulatedAnneal {
 
 	public IsopointalSetResult findMinimumEnergy(int numRuns, int trialsPerRun, int spaceGroup, String[] wyckoffSites, double potential_param1, double potential_param2, double potential_param3) {
 		double startkT = 2;
-		double endT = 0.01;
+		double endT = 0.1;
 
 		IsopointalSetFactory isopointalSetFactory = new IsopointalSetFactory();
 		double minEnergy = Double.MAX_VALUE;
@@ -25,9 +25,10 @@ public class SimulatedAnneal {
 	}
 
 	public IsopointalSetResult runSimulatedAnneal(int numTrials, double startkT, double endkT, IsopointalSet isopointalSet, double potential_param1, double potential_param2, double potential_param3) {
-		LJEmbeddedAtomPotential pot = new LJEmbeddedAtomPotential(potential_param1, potential_param2, potential_param3); /* p1=A, p2=beta */
-		//LJGPotential pot = new LJGPotential(potential_param1, potential_param2, potential_param3); /* p1=r0, p2=epsilon, sigmasq=0.02*/
+		//LJEmbeddedAtomPotential pot = new LJEmbeddedAtomPotential(potential_param1, potential_param2, potential_param3); /* p1=A, p2=beta */ /*AJB*/
+//		LJGPotential pot = new LJGPotential(potential_param1, potential_param2, potential_param3); /* p1=r0, p2=epsilon, sigmasq=0.02*/
 		//LJEAM_Peter_Potential pot = new LJEAM_Peter_Potential(potential_param1, potential_param2, potential_param3); /* p1=A, p2=rhobar0, p3=beta*/
+		OPPotential pot = new OPPotential(potential_param1,potential_param2,potential_param3);  /*p1 = k, p2 = phi, p3=blank  */
 
 		double numAtoms = isopointalSet.getNumPositions();
 
@@ -36,7 +37,6 @@ public class SimulatedAnneal {
 		double lastEnergy = energy;
 		double minEnergy = energy;
 		IsopointalSetResult minResult = isopointalSet.saveResult();
-
 		double startTime = System.currentTimeMillis();
 		double kT = startkT;
 		double geometricStep = Math.pow(endkT/startkT, 1.0/numTrials);

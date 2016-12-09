@@ -18,7 +18,7 @@ public class LJGPotential {
 	public final double r0;    // Amount of multi-body bonding
 	public final double sigmasq;      // Decay of electron density
 
-	public final double Rcutoff = 3.0;      // Atoms further away than this value are ignored
+	public final double Rcutoff = 2.5;      // Atoms further away than this value are ignored
 
 	private final double RcutoffSq;
 	private final double s;
@@ -81,9 +81,9 @@ public class LJGPotential {
 							if (x == 0 && y == 0 && z == 0 && i == j)
 								continue;
 
-							double r = isopointalSet.getDistSqBetweenPositions(i, j, x, y, z);
-							if (r <= RcutoffSq)
-								interAtomicDistances[i].add(Math.sqrt(r));
+							double rsq = isopointalSet.getDistSqBetweenPositions(i, j, x, y, z);
+							if (rsq <= RcutoffSq)
+								interAtomicDistances[i].add(Math.sqrt(rsq));
 						}
 					}
 				}

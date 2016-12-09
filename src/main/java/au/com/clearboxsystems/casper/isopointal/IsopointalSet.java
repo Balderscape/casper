@@ -77,7 +77,7 @@ public class IsopointalSet {
 			for (WyckoffPosition position : site.positions) {
 				numPositions++;
 			}
-		}
+		}transformToCartesian(new Vector3(1, 0, 0), vecA);
 
 		cartesianPositions = new Vector3[numPositions];
 		multiplicity = new int[numPositions];
@@ -217,6 +217,8 @@ public class IsopointalSet {
 
 	public IsopointalSetResult saveResult() {
 		IsopointalSetResult result = new IsopointalSetResult();
+		result.numPositions = numPositions; //TSH
+		result.numSites = wyckoffSites.size();
 		result.isopointalSet = "" + spaceGroup.number;
 		result.spaceGroup = spaceGroup.number;
 		result.volume = volume;
